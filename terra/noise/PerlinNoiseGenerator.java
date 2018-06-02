@@ -1,8 +1,6 @@
 package terra.noise;
 
 public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
-	private double[][] noise;
-
 	private int height;
 	private int width;
 	private long seed;
@@ -10,6 +8,9 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 	private int octaves;
 	private double persistence;
 	private double lacunarity;
+	private double[][] noise;
+	private NoiseMask noiseMask;
+	private double noiseMaskIntensity;
 
 	private double maxNoiseValue;
 	private double minNoiseValue;
@@ -23,6 +24,12 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		this.persistence = 1;
 		this.lacunarity = 1;
 		this.noise = new double[this.height][this.width];
+		this.noiseMaskIntensity = 0;
+		this.noiseMask = new NoiseMaskGenerator()
+				.height(this.height)
+				.width(this.width)
+				.intensity(this.noiseMaskIntensity)
+				.generate();
 
 		this.maxNoiseValue = Double.MIN_VALUE;
 		this.minNoiseValue = Double.MAX_VALUE;
@@ -40,6 +47,11 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 
 	public PerlinNoiseGenerator seed(int seed) {
 		this.seed = seed;
+		return this;
+	}
+
+	public PerlinNoiseGenerator noiseMask(double noiseMaskIntensity) {
+		this.noiseMaskIntensity = noiseMaskIntensity;
 		return this;
 	}
 
@@ -65,8 +77,14 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 
 	@Override
 	public PerlinNoise generate() {
+		this.noiseMask = new NoiseMaskGenerator()
+				.height(this.height)
+				.width(this.width)
+				.intensity(this.noiseMaskIntensity)
+				.generate();
+
 		this.noise = generateNoiseArray();
-		return new PerlinNoise(this.height, this.width, this.seed, this.noise, this.frequency, this.octaves, this.persistence, this.lacunarity);
+		return new PerlinNoise(this.height, this.width, this.seed, this.noise, this.noiseMask, this.frequency, this.octaves, this.persistence, this.lacunarity);
 	}
 
 	private double[][] generateNoiseArray() {
@@ -140,10 +158,12 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 
 	private double[][] smoothNoiseArray(double[][] noise) {
 		double[][] smoothNoise = new double[this.height][this.width];
+		double[][] maskNoise = this.noiseMask.getMask();
 
 		for (int y = 0; y < this.height; y++) {
 			for (int x = 0; x < this.width; x++) {
 				smoothNoise[y][x] = inverseLerp(noise[y][x], this.minNoiseValue, this.maxNoiseValue);
+				smoothNoise[y][x] = Math.max(0, smoothNoise[y][x] - maskNoise[y][x]);
 			}
 		}
 

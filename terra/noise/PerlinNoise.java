@@ -20,14 +20,15 @@ public class PerlinNoise extends Noise {
 			34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,
 			49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,
 			138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180};
+
 	static { 
 		for (int x = 0; x < 256 ; x++) {
 			PERMUTATION_TABLE[256 + x] = PERMUTATION_TABLE[x] = PERMUTATION_VALUES[x]; 
 		}
 	}
 
-	PerlinNoise(int height, int width, long seed, double[][] noise, int frequency, int octaves, double persistence, double lacunarity) {
-		super(height, width, seed, noise);
+	PerlinNoise(int height, int width, long seed, double[][] noise, NoiseMask noiseMask, int frequency, int octaves, double persistence, double lacunarity) {
+		super(height, width, seed, noise, noiseMask);
 
 		this.frequency = frequency;
 		this.octaves = octaves;

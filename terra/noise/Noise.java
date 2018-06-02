@@ -7,13 +7,15 @@ public abstract class Noise {
 	private int width;
 	private long seed;
 	private double noiseArray[][]; // Should convert to a Grid once implemented. TODO
+	private NoiseMask noiseMask;
 	private BufferedImage noiseImage;
 
-	Noise(int height, int width, long seed, double[][] noise) {
+	Noise(int height, int width, long seed, double[][] noise, NoiseMask noiseMask) {
 		this.height = height;
 		this.width = width;
 		this.seed = seed;
 		this.noiseArray = new double[this.height][this.width];
+		this.noiseMask = noiseMask;
 		this.noiseImage = generateNoiseImage(noise);
 
 		// Perform an arraycopy on each row of the 2D array.
@@ -25,6 +27,7 @@ public abstract class Noise {
 		this.width = noise.getWidth();
 		this.seed = noise.getSeed();
 		this.noiseArray = new double[this.height][this.width];
+		this.noiseMask = noise.getNoiseMask();
 		this.noiseImage = noise.getNoiseImage();
 
 		// Perform an arraycopy on each row of the 2D array.
@@ -38,7 +41,7 @@ public abstract class Noise {
 	}
 
 	private BufferedImage generateNoiseImage(double[][] noise) {
-		BufferedImage noiseImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+		BufferedImage noiseImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 		for (int x = 0; x < this.width; x++) {
 			for (int y = 0; y < this.height; y++) {
@@ -53,8 +56,9 @@ public abstract class Noise {
 		int blue = (int)(noiseValue * 0xFF);
 		int green = blue * 0x100;
 		int red = blue * 0x10000;
-		
-		return red + green + blue;
+		int alpha = 0xFF000000;
+
+		return alpha + red + green + blue;
 	}
 
 	public int getHeight() {
@@ -71,6 +75,10 @@ public abstract class Noise {
 
 	public double[][] getNoise() {
 		return this.noiseArray;
+	}
+
+	public NoiseMask getNoiseMask() {
+		return this.noiseMask;
 	}
 
 	public BufferedImage getNoiseImage() {
