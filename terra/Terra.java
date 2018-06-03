@@ -11,14 +11,14 @@ import terra.noise.WhiteNoiseGenerator;
 public class Terra {
 	public static void main(String[] args) {
 		Noise perlin = new PerlinNoiseGenerator()
-							.height(512)
-							.width(512)
+							.height(256)
+							.width(256)
 							.seed(0)
-							.frequency(1)
+							.frequency(2)
 							.octaves(1)
 							.persistence(1)
 							.lacunarity(1)
-							.noiseMask(0)
+							.noiseMask(0.5)
 							.generate();
 
 		new NoiseFrame(perlin);
@@ -26,14 +26,14 @@ public class Terra {
 		NoiseMask mask = new NoiseMaskGenerator()
 							.height(256)
 							.width(256)
-							.intensity(0.25)
+							.intensity(0.5)
 							.generate();
 
 		new ImageFrame("", mask.getMaskImage(), false);
 
 		Noise white = new WhiteNoiseGenerator()
-							.height(512)
-							.width(512)
+							.height(256)
+							.width(256)
 							.seed(0)
 							.noiseMask(0.5)
 							.generate();

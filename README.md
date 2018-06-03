@@ -1,49 +1,80 @@
 # Terra :earth_americas:
 
-### Perlin Noise
-  + Steps
-    1. Grid definition
-       1. Second level grid generation.
-       2. Pseudorandom vector generation at each second level grid vertex.
-    2. Dot Product calculation between each first level grid value and its four respective second level grid vertex vectors.
-    3. Interpolation
+## Perlin Noise Overview
+
+Perlin noise, while random, is what is referred to as coherent meaning there is gradual change between values.
+
+|          *White Noise*           |          *Perlin Noise*           |
+| :-----------------------: | :-----------------------: |
+| ![white-noise-example][white-noise-example] | ![perlin-noise-example][perlin-noise-example] |
+
+#### Perlin Noise Algorithm
+
+1. **Definition:**
+   1. Second level grid generation.
+   2. Pseudorandom vector generation at each second level grid vertex.
+2. **Calculation:** 
+   1. Calculate the Dot Product between each first level grid value and its four respective second level grid vertex vectors. This ensures that each point in adjacent second level grid quadrants share two vectors.
+3. **Interpolation:**
+   1. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between second level grid quadrants.
+      + **Fade function used:**  $6x^5-15x^4+10x^3$
+   2. Calculate the local minimum and maximum of the given noise map, then rescale the individual noise values back onto the interval of [0-1] through inverse linear interpolation.
+      ​
 
 ##### Terminology
 
 + **Seed**: 
   + **Definition**: The single number utilized to initiate the pseudorandom generation of a noise map.
   + **Use**: Each pseudorandom noise map can be recreated from scratch through the reuse of its unique seed.
-    |          Seed 0           |          Seed 1           |
-    | :-----------------------: | :-----------------------: |
-    | ![Seed: 0][perlin-seed-0] | ![Seed: 1][perlin-seed-1] |
+
+|          *Seed X*           |          *Seed Y*           |
+| :-----------------------: | :-----------------------: |
+| ![Seed: x][perlin-seed-x] | ![Seed: y][perlin-seed-y] |
+
 + Frequency: 
-  + **Definition**:
+  + **Definition**: The scale number of individual peaks and troughs found in one dimension of a single noise map octave.
   + **Use**: 
-+ Octaves:
-  + **Definition**:
+    ​
++ Octave:
+  + **Definition**: A single noise map which can be used independently or in compounding layers.
   + **Use**: 
+    ​
 + Persistence:
-  + **Definition**:
+  + **Definition**: The amplitude multiplier between subsequently noise map octaves.
   + **Use**: 
+    ​
 + Lacunarity:
-  + **Definition**:
+  + **Definition**: The frequency multiplier between subsequently noise map octaves.
   + **Use**: 
+    ​
 + Noise Mask:
-  + **Definition**:
+  + **Definition**: A topmost layer added to a noise map meant to conceal its noise values by a variable factor.
   + **Use**: 
+
+|          *Noise Mask*       |          *Raw Noise*       | *Masked Noise* |
+| :-----------------------: | :-----------------------: | :-----------------------: |
+| ![Noise Mask][noise-mask] | ![Raw Perlin][raw-perlin] | ![Masked Perlin][masked-perlin] |
+
+-----
+#### Generating Perlin Noise
 
 ```java
 Noise perlin = new PerlinNoiseGenerator()
-							.height(512)
-							.width(512)
-							.seed(0)
-							.frequency(1)
-							.octaves(10)
-							.persistence(0.5)
-							.lacunarity(2.8)
-							.noiseMask(0.5)
-							.generate();
+			.height(512)
+			.width(512)
+			.seed(0)
+			.frequency(1)
+			.octaves(10)
+			.persistence(0.5)
+			.lacunarity(2.8)
+			.noiseMask(0.5)
+			.generate();
 ```
 
-[perlin-seed-0]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed 0."
-[perlin-seed-1]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed 1."
+[white-noise-example]: https://i.imgur.com/kdvoLXs.gif
+[perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif
+[noise-mask]: https://i.imgur.com/HgLPvlF.png
+[raw-perlin]: https://i.imgur.com/OXBXLNm.png
+[masked-perlin]: https://i.imgur.com/v9pjZlY.png
+[perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
+[perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."

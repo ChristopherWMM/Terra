@@ -52,22 +52,28 @@ public class NoiseMaskGenerator implements Generator<NoiseMask> {
 		double minVal = (((this.height + this.width) / 2) / 100) / (intensity * 100);
 		double maxVal = (((this.height + this.width) / 2) / 100) * (intensity * 100);
 
-		if (intensity <= 1 && intensity > 0) {
+		if (intensity <= .99 && intensity > 0) {
 			if (calculateDistanceToEdge(x, y) <= minVal) {
 				return 0;
 			}
 			else if (calculateDistanceToEdge(x, y) >= maxVal) {
-				return value;
-			} else  {
+				return interpolate(value);
+			} else {
 				double possibleMax = maxVal - minVal;
 				double currentValue = calculateDistanceToEdge(x, y) - minVal;
 				double fadeFactor = currentValue / possibleMax;
 
-				return (value * fadeFactor);
+				return interpolate(value * fadeFactor);
 			}
+		} else if (intensity > .99) {
+			return 0;
 		} else {
 			return value;
 		}
+	}
+
+	private double interpolate(double noiseValue) {
+		return noiseValue * noiseValue * noiseValue * (noiseValue * (noiseValue * 6 - 15) + 10); 
 	}
 
 	private int calculateDistanceToEdge(int x, int y) {

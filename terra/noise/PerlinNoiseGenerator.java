@@ -9,8 +9,8 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 	private double persistence;
 	private double lacunarity;
 	private double[][] noise;
-	private NoiseMask noiseMask;
 	private double noiseMaskIntensity;
+	private NoiseMask noiseMask;
 
 	private double maxNoiseValue;
 	private double minNoiseValue;
@@ -28,7 +28,7 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		this.noiseMask = new NoiseMaskGenerator()
 				.height(this.height)
 				.width(this.width)
-				.intensity(this.noiseMaskIntensity)
+				.intensity(0)
 				.generate();
 
 		this.maxNoiseValue = Double.MIN_VALUE;

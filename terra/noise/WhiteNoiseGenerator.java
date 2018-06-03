@@ -7,8 +7,8 @@ public class WhiteNoiseGenerator implements Generator<WhiteNoise> {
 	private int width;
 	private long seed;
 	private double[][] noise;
-	private NoiseMask noiseMask;
 	private double noiseMaskIntensity;
+	private NoiseMask noiseMask;
 
 	private Random random;
 
