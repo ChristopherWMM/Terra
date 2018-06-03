@@ -17,7 +17,7 @@ Perlin noise, while random, is what is referred to as coherent meaning there is 
    1. Calculate the Dot Product between each first level grid value and its four respective second level grid vertex vectors. This ensures that each point in adjacent second level grid quadrants share two vectors.
 3. **Interpolation:**
    1. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between second level grid quadrants.
-      + **Fade function used:**  $6x^5-15x^4+10x^3$
+      + **Fade function used:** ![Fade Function][fade-function]
    2. Calculate the local minimum and maximum of the given noise map, then rescale the individual noise values back onto the interval of [0-1] through inverse linear interpolation.
       ​
 
@@ -73,6 +73,7 @@ Noise perlin = new PerlinNoiseGenerator()
 
 [white-noise-example]: https://i.imgur.com/kdvoLXs.gif
 [perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif
+[fade-function]: http://latex.codecogs.com/gif.latex?%246x%5E5-15x%5E4&plus;10x%5E3%24
 [noise-mask]: https://i.imgur.com/HgLPvlF.png
 [raw-perlin]: https://i.imgur.com/OXBXLNm.png
 [masked-perlin]: https://i.imgur.com/v9pjZlY.png
