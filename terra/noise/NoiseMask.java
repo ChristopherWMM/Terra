@@ -76,7 +76,7 @@ public class NoiseMask {
 	/**
 	 * Converts the given {@link NoiseMask} value into its corresponding grayscale ARGB color.
 	 * 
-	 * @param maskValue
+	 * @param maskValue The {@link NoiseMask} value within the interval within the interval <b>[0.0 - 1.0]</b>.
 	 * @return The grayscale integer ARGB color corresponding to the given {@link NoiseMask} value.
 	 * @since 1.0
 	 */
