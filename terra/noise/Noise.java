@@ -45,14 +45,14 @@ public abstract class Noise {
 
 		for (int x = 0; x < this.width; x++) {
 			for (int y = 0; y < this.height; y++) {
-				noiseImage.setRGB(x, y, getGreyscaleNoiseColor(noise[y][x]));
+				noiseImage.setRGB(x, y, getGrayscaleNoiseColor(noise[y][x]));
 			}
 		}
 
 		return noiseImage;
 	}
 
-	private int getGreyscaleNoiseColor(double noiseValue) {
+	private int getGrayscaleNoiseColor(double noiseValue) {
 		int blue = (int)(noiseValue * 0xFF);
 		int green = blue * 0x100;
 		int red = blue * 0x10000;

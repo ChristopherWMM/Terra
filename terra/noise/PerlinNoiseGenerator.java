@@ -35,42 +35,70 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		this.minNoiseValue = Double.MAX_VALUE;
 	}
 
-	public PerlinNoiseGenerator height(int height) {
+	public PerlinNoiseGenerator height(int height) throws IllegalArgumentException {
+		if (height < 1) {
+			throw new IllegalArgumentException("A perlin noise map height must be a positive, non-zero value. " + height + " is too small.");
+		}
+
 		this.height = height;
 		return this;
 	}
 
-	public PerlinNoiseGenerator width(int width) {
+	public PerlinNoiseGenerator width(int width) throws IllegalArgumentException {
+		if (width < 1) {
+			throw new IllegalArgumentException("A perlin noise map width must be a positive, non-zero value. " + width + " is too small.");
+		}
+
 		this.width = width;
 		return this;
 	}
 
-	public PerlinNoiseGenerator seed(int seed) {
+	public PerlinNoiseGenerator seed(long seed) {
 		this.seed = seed;
 		return this;
 	}
 
-	public PerlinNoiseGenerator noiseMask(double noiseMaskIntensity) {
+	public PerlinNoiseGenerator noiseMask(double noiseMaskIntensity) throws IllegalArgumentException {
+		if (noiseMaskIntensity < 0 || noiseMaskIntensity > 1) {
+			throw new IllegalArgumentException("A perlin noise mask intensity must be a positive value between zero and one. " + noiseMaskIntensity + " is outside that interval.");
+		}
+
 		this.noiseMaskIntensity = noiseMaskIntensity;
 		return this;
 	}
 
-	public PerlinNoiseGenerator frequency(int frequency) {
+	public PerlinNoiseGenerator frequency(int frequency) throws IllegalArgumentException {
+		if (frequency < 1) {
+			throw new IllegalArgumentException("A perlin noise map initial frequency must be a positive, non-zero value. " + frequency + " is too small.");
+		}
+
 		this.frequency = frequency;
 		return this;
 	}
 
-	public PerlinNoiseGenerator octaves(int octaves) {
+	public PerlinNoiseGenerator octaves(int octaves) throws IllegalArgumentException {
+		if (octaves < 1) {
+			throw new IllegalArgumentException("A perlin noise map octave count must be a positive, non-zero value. " + octaves + " is too small.");
+		}
+
 		this.octaves = octaves;
 		return this;
 	}
 
 	public PerlinNoiseGenerator persistence(double persistence) {
+		if (persistence < Double.MIN_VALUE) {
+			throw new IllegalArgumentException("A perlin noise persistence must be a positive, non-zero value. " + persistence + " is too small.");
+		}
+
 		this.persistence = persistence;
 		return this;
 	}
 
 	public PerlinNoiseGenerator lacunarity(double lacunarity) {
+		if (lacunarity < Double.MIN_VALUE) {
+			throw new IllegalArgumentException("A perlin noise lacunarity must be a positive, non-zero value. " + lacunarity + " is too small.");
+		}
+
 		this.lacunarity = lacunarity;
 		return this;
 	}
@@ -123,6 +151,10 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		return value;
 	}
 
+	private double generatePerlinValue(double x, double y) {
+		return generatePerlinValue(x, y, 1);
+	}
+
 	private double generatePerlinValue(double x, double y, double frequency) {
 		double doubleX = (double) x / this.width;
 		double doubleY = (double) y / this.height;
@@ -130,8 +162,8 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		double frequencyX = (doubleX * frequency) + this.seed;
 		double frequencyY = (doubleY * frequency) + this.seed;
 
-		int flooredX = (int) Math.floor(frequencyX) & 255;
-		int flooredY = (int) Math.floor(frequencyY) & 255;
+		int flooredX = (int) Math.floor(frequencyX) % 256;
+		int flooredY = (int) Math.floor(frequencyY) % 256;
 
 		int corner1 = PerlinNoise.PERMUTATION_TABLE[PerlinNoise.PERMUTATION_TABLE[flooredX] + flooredY];
 		int corner2 = PerlinNoise.PERMUTATION_TABLE[PerlinNoise.PERMUTATION_TABLE[flooredX + 1] + flooredY];
@@ -146,14 +178,14 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		double dotCorner3 = calculateDotProduct(corner3, adjustedX, adjustedY - 1);
 		double dotCorner4 = calculateDotProduct(corner4, adjustedX - 1, adjustedY - 1);
 
-		double interpolatedX = interpolate(adjustedX);
-		double interpolatedY = interpolate(adjustedY);
+		double interpolatedX = fade(adjustedX);
+		double interpolatedY = fade(adjustedY);
 
 		double lerpedX1 = lerp(interpolatedX, dotCorner1, dotCorner2);
 		double lerpedX2 = lerp(interpolatedX, dotCorner3, dotCorner4);
 		double lerpedY = lerp(interpolatedY, lerpedX1, lerpedX2);
 
-		return lerpedY;
+		return (lerpedY + 1) / 2;
 	}
 
 	private double[][] smoothNoiseArray(double[][] noise) {
@@ -170,6 +202,10 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		return smoothNoise;
 	}
 
+	private double fade(double noiseValue) {
+		return noiseValue * noiseValue * noiseValue * (noiseValue * (noiseValue * 6 - 15) + 10); 
+	}
+
 	private double lerp(double amount, double low, double high) {
 		return low + amount * (high - low);
 	}
@@ -178,21 +214,17 @@ public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
 		return ((amount - low) / (high - low));
 	}
 
-	private double interpolate(double noiseValue) {
-		return noiseValue * noiseValue * noiseValue * (noiseValue * (noiseValue * 6 - 15) + 10); 
-	}
-
 	private double calculateDotProduct(int corner, double x, double y) {
-		switch(corner & 3) {
-			case 0: 
+		switch(corner % 4) {
+			case 0:
 				return x + y;
-			case 1: 
+			case 1:
 				return -x + y;
-			case 2: 
+			case 2:
 				return x - y;
-			case 3: 
+			case 3:
 				return -x - y;
-			default: 
+			default:
 				return 0;
 		}
 	}

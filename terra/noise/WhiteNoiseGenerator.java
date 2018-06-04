@@ -27,23 +27,35 @@ public class WhiteNoiseGenerator implements Generator<WhiteNoise> {
 		this.random = new Random();
 	}
 
-	public WhiteNoiseGenerator height(int height) {
+	public WhiteNoiseGenerator height(int height) throws IllegalArgumentException {
+		if (height < 1) {
+			throw new IllegalArgumentException("A white noise map height must be a positive, non-zero value. " + height + " is too small.");
+		}
+
 		this.height = height;
 		return this;
 	}
 
-	public WhiteNoiseGenerator width(int width) {
+	public WhiteNoiseGenerator width(int width) throws IllegalArgumentException {
+		if (width < 1) {
+			throw new IllegalArgumentException("A white noise map width must be a positive, non-zero value. " + width + " is too small.");
+		}
+
 		this.width = width;
 		return this;
 	}
 
-	public WhiteNoiseGenerator seed(int seed) {
+	public WhiteNoiseGenerator seed(long seed) {
 		this.seed = seed;
 		this.random.setSeed(seed);
 		return this;
 	}
 
-	public WhiteNoiseGenerator noiseMask(double noiseMaskIntensity) {
+	public WhiteNoiseGenerator noiseMask(double noiseMaskIntensity) throws IllegalArgumentException {
+		if (noiseMaskIntensity < 0 || noiseMaskIntensity > 1) {
+			throw new IllegalArgumentException("A white noise mask intensity must be a positive value between zero and one. " + noiseMaskIntensity + " is outside that interval.");
+		}
+
 		this.noiseMaskIntensity = noiseMaskIntensity;
 		return this;
 	}

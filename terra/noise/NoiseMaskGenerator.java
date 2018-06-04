@@ -15,17 +15,29 @@ public class NoiseMaskGenerator implements Generator<NoiseMask> {
 		this.mask = new double[this.height][this.width];
 	}
 
-	public NoiseMaskGenerator height(int height) {
+	public NoiseMaskGenerator height(int height) throws IllegalArgumentException {
+		if (height < 1) {
+			throw new IllegalArgumentException("A noise mask height must be a positive, non-zero value. " + height + " is too small.");
+		}
+
 		this.height = height;
 		return this;
 	}
 
-	public NoiseMaskGenerator width(int width) {
+	public NoiseMaskGenerator width(int width) throws IllegalArgumentException {
+		if (width < 1) {
+			throw new IllegalArgumentException("A noise mask width must be a positive, non-zero value. " + width + " is too small.");
+		}
+
 		this.width = width;
 		return this;
 	}
 
-	public NoiseMaskGenerator intensity(double intensity) {
+	public NoiseMaskGenerator intensity(double intensity) throws IllegalArgumentException {
+		if (intensity < 0.0 || intensity > 1.0) {
+			throw new IllegalArgumentException("A noise mask intensity must be a positive value between zero and one. " + intensity + " is outside that interval.");
+		}
+
 		this.intensity = intensity;
 		return this;
 	}
@@ -41,29 +53,32 @@ public class NoiseMaskGenerator implements Generator<NoiseMask> {
 
 		for (int y = 0; y < this.height; y++) {
 			for (int x = 0; x < this.width; x++) {
-				mask[y][x] = Math.abs(generateMaskValue(x, y, 1) - 1);
+				mask[y][x] = Math.abs(generateMaskValue(x, y) - 1);
 			}
 		}
 
 		return mask;
 	}
 
-	private double generateMaskValue(int x, int y, double value) {
+	private double generateMaskValue(int x, int y) {
+		double value = 1.0;
 		double minVal = (((this.height + this.width) / 2) / 100) / (intensity * 100);
 		double maxVal = (((this.height + this.width) / 2) / 100) * (intensity * 100);
 
 		if (intensity <= .99 && intensity > 0) {
-			if (calculateDistanceToEdge(x, y) <= minVal) {
+			double distanceToNearestEdge = calculateDistanceToNearestEdge(x, y);
+
+			if (distanceToNearestEdge <= minVal) {
 				return 0;
-			}
-			else if (calculateDistanceToEdge(x, y) >= maxVal) {
-				return interpolate(value);
+			} else if (distanceToNearestEdge >= maxVal) {
+				return value;
 			} else {
 				double possibleMax = maxVal - minVal;
-				double currentValue = calculateDistanceToEdge(x, y) - minVal;
+				double currentValue = calculateDistanceToNearestEdge(x, y) - minVal;
 				double fadeFactor = currentValue / possibleMax;
+				double adjustedValue = fade(value * fadeFactor);
 
-				return interpolate(value * fadeFactor);
+				return adjustedValue;
 			}
 		} else if (intensity > .99) {
 			return 0;
@@ -72,11 +87,11 @@ public class NoiseMaskGenerator implements Generator<NoiseMask> {
 		}
 	}
 
-	private double interpolate(double noiseValue) {
+	private double fade(double noiseValue) {
 		return noiseValue * noiseValue * noiseValue * (noiseValue * (noiseValue * 6 - 15) + 10); 
 	}
 
-	private int calculateDistanceToEdge(int x, int y) {
+	private int calculateDistanceToNearestEdge(int x, int y) {
 		int[] distances = new int[] {x, y, (this.width), (this.height), (this.width - x), (this.height - y)};
 		Arrays.sort(distances);
 
