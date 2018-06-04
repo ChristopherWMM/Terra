@@ -10,19 +10,28 @@ import java.awt.image.BufferedImage;
  * @author ChristopherWMM
  */
 public class NoiseMask {
+	/** The non-zero integer height of this {@link NoiseMask} object. */
 	private int height;
+
+	/** The non-zero integer width of this {@link NoiseMask} object. */
 	private int width;
+
+	/** The double intensity of this {@link NoiseMask} object. */
 	private double intensity;
+
+	/** The 2D double array containing the individual mask values of this {@link NoiseMask} object. */
 	private double[][] maskArray;
+
+	/** The {@link BufferedImage} visual representation of this {@link NoiseMask} object. */
 	private BufferedImage maskImage;
 
 	/**
-	 * Constructs a new {@link NoiseMask} with the given values.
+	 * Constructs a new {@link NoiseMask} object with the given values.
 	 * 
-	 * @param height The non-zero integer height of this {@link NoiseMask}.
-	 * @param width The non-zero integer width of this {@link NoiseMask}.
-	 * @param intensity The double intensity of this {@link NoiseMask}.
-	 * @param maskArray The 2D double array containing the individual mask values of this {@link NoiseMask}.
+	 * @param height The non-zero integer height of this {@link NoiseMask} object.
+	 * @param width The non-zero integer width of this {@link NoiseMask} object.
+	 * @param intensity The double intensity of this {@link NoiseMask} object.
+	 * @param maskArray The 2D double array containing the individual mask values of this {@link NoiseMask} object.
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
@@ -33,6 +42,10 @@ public class NoiseMask {
 			throw new IllegalArgumentException("A noise mask width must be a positive, non-zero value. " + width + " is too small.");
 		} else if (intensity < 0.0 || intensity > 1.0) {
 			throw new IllegalArgumentException("A noise mask intensity must be a positive value between zero and one. " + intensity + " is outside that interval.");
+		} else if (maskArray == null) {
+			throw new IllegalArgumentException("The given noise array cannot be null.");
+		} else if (maskArray.length == 0 || maskArray.length != height || maskArray[0].length == 0 || maskArray[0].length != width) {
+			throw new IllegalArgumentException("The dimensions of the provided noise array is invalid!");
 		}
 
 		this.height = height;
@@ -45,9 +58,9 @@ public class NoiseMask {
 	}
 
 	/**
-	 * Constructs a new {@link NoiseMask} as a deep copy based on the given {@link NoiseMask}.
+	 * Constructs a new {@link NoiseMask} object as a deep copy based on the given {@link NoiseMask} object.
 	 * 
-	 * @param noiseMask The {@link NoiseMask} being copied.
+	 * @param noiseMask The {@link NoiseMask} object being copied.
 	 * @since 1.0
 	 */
 	NoiseMask(NoiseMask noiseMask) {
@@ -90,7 +103,7 @@ public class NoiseMask {
 	}
 
 	/**
-	 * Generates the {@link BufferedImage} visual representation of this {@link NoiseMask}. 
+	 * Generates the {@link BufferedImage} visual representation of this {@link NoiseMask} object. 
 	 * 
 	 * @param mask The 2D double array containing the individual mask values of this {@link NoiseMask}.
 	 * @return The grayscale {@link BufferedImage} visual representation of the given 2D double array.
@@ -109,9 +122,9 @@ public class NoiseMask {
 	}
 
 	/** 
-	 * Returns the non-zero height of this {@link NoiseMask}.
+	 * Returns the non-zero height of this {@link NoiseMask} object.
 	 * 
-	 * @return The non-zero integer height of this {@link NoiseMask}.
+	 * @return The non-zero integer height of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
 	public int getHeight() {
@@ -119,9 +132,9 @@ public class NoiseMask {
 	}
 
 	/** 
-	 * Returns the non-zero width of this {@link NoiseMask}.
+	 * Returns the non-zero width of this {@link NoiseMask} object.
 	 * 
-	 * @return The non-zero integer width of this {@link NoiseMask}.
+	 * @return The non-zero integer width of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
 	public int getWidth() {
@@ -129,10 +142,10 @@ public class NoiseMask {
 	}
 
 	/**
-	 * Returns the intensity of this {@link NoiseMask}. 
+	 * Returns the intensity of this {@link NoiseMask} object. 
 	 * Intensity is within the interval <b>[0.0 - 1.0]</b>.
 	 * 
-	 * @return The double intensity of this {@link NoiseMask}.
+	 * @return The double intensity of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
 	public double getIntensity() {
@@ -140,10 +153,10 @@ public class NoiseMask {
 	}
 
 	/**
-	 * Returns the 2D array containing the individual mask values of this {@link NoiseMask}. 
+	 * Returns the 2D array containing the individual mask values of this {@link NoiseMask} object. 
 	 * Values within the array are within the interval <b>[0.0 - 1.0]</b> where 1.0 indicates the corresponding value should be completely masked and 0.0 indicates the value should not be masked at all.
 	 * 
-	 * @return The 2D double array containing the individual mask values of this {@link NoiseMask}.
+	 * @return The 2D double array containing the individual mask values of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
 	public double[][] getMask() {
@@ -151,9 +164,9 @@ public class NoiseMask {
 	}
 
 	/**
-	 * Returns the visual representation of this {@link NoiseMask}.
+	 * Returns the visual representation of this {@link NoiseMask} object.
 	 * 
-	 * @return The {@link BufferedImage} visual representation of this {@link NoiseMask}.
+	 * @return The {@link BufferedImage} visual representation of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
 	public BufferedImage getMaskImage() {
