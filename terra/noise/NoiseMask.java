@@ -4,26 +4,26 @@ import java.awt.image.BufferedImage;
 
 /**
  * The immutable programmatic representation of a noise mask.
- * Objects store the results output by a {@link NoiseMaskGenerator} with specific corresponding parameters.
+ * Objects store the results output by a {@link NoiseMaskGenerator} with the specific corresponding parameters.
  * 
  * @since 1.0
  * @author ChristopherWMM
  */
 public class NoiseMask {
 	/** The non-zero integer height of this {@link NoiseMask} object. */
-	private int height;
+	private final int height;
 
 	/** The non-zero integer width of this {@link NoiseMask} object. */
-	private int width;
+	private final int width;
 
 	/** The double intensity of this {@link NoiseMask} object. */
-	private double intensity;
+	private final double intensity;
 
 	/** The 2D double array containing the individual mask values of this {@link NoiseMask} object. */
-	private double[][] maskArray;
+	private final double[][] maskArray;
 
 	/** The {@link BufferedImage} visual representation of this {@link NoiseMask} object. */
-	private BufferedImage maskImage;
+	private final BufferedImage maskImage;
 
 	/**
 	 * Constructs a new {@link NoiseMask} object with the given values.
@@ -58,7 +58,7 @@ public class NoiseMask {
 	}
 
 	/**
-	 * Constructs a new {@link NoiseMask} object as a deep copy based on the given {@link NoiseMask} object.
+	 * Constructs a new {@link NoiseMask} object that is a deep copy based on the given {@link NoiseMask} object.
 	 * 
 	 * @param noiseMask The {@link NoiseMask} object being copied.
 	 * @since 1.0
@@ -68,7 +68,7 @@ public class NoiseMask {
 		this.width = noiseMask.getWidth();
 		this.intensity = noiseMask.getIntensity();
 		this.maskArray = new double[this.height][this.width];
-		this.maskImage = noiseMask.getMaskImage();
+		this.maskImage = generateMaskImage(noiseMask.getMask());
 
 		copy2DArray(this.maskArray, noiseMask.getMask());
 	}
@@ -170,6 +170,16 @@ public class NoiseMask {
 	 * @since 1.0
 	 */
 	public BufferedImage getMaskImage() {
-		return maskImage;
+		return this.maskImage;
+	}
+
+	/**
+	 * Returns a new {@link NoiseMask} object that is a deep copy of this {@link NoiseMask} object.
+	 * 
+	 * @return A new {@link NoiseMask} object that is a deep copy of this {@link NoiseMask} object.
+	 * @since 1.0
+	 */
+	public NoiseMask clone() {
+		return new NoiseMask(this);
 	}
 }

@@ -4,29 +4,29 @@ import java.awt.image.BufferedImage;
 
 /**
  * The immutable programmatic representation of noise.
- * Objects store the results output by a {@link Noise} {@link Generator} with specific corresponding parameters.
+ * Objects store the results output by a {@link Noise} {@link Generator} with the specific corresponding parameters.
  * 
  * @since 1.0
  * @author ChristopherWMM
  */
 public abstract class Noise {
 	/** The non-zero integer height of this {@link Noise} object. */
-	private int height;
+	private final int height;
 
 	/** The non-zero integer width of this {@link Noise} object. */
-	private int width;
+	private final int width;
 
 	/** The long seed used to generate this {@link Noise} object. */
-	private long seed;
+	private final long seed;
 
 	/** The 2D double array containing the individual mask values of this {@link Noise} object. */
-	private double noiseArray[][];
+	private final double noiseArray[][];
 
 	/** The {@link NoiseMask} being applied to this {@link Noise} object. */
-	private NoiseMask noiseMask;
+	private final NoiseMask noiseMask;
 
 	/** The {@link BufferedImage} visual representation of this {@link Noise} object. */
-	private BufferedImage noiseImage;
+	private final BufferedImage noiseImage;
 
 	/**
 	 * Constructs a new {@link Noise} object with the given values.
@@ -56,14 +56,14 @@ public abstract class Noise {
 		this.width = width;
 		this.seed = seed;
 		this.noiseArray = new double[this.height][this.width];
-		this.noiseMask = noiseMask;
+		this.noiseMask = noiseMask.clone();
 		this.noiseImage = generateNoiseImage(noiseArray);
 
 		copy2DArray(this.noiseArray, noiseArray);
 	}
 
 	/**
-	 * Constructs a new {@link Noise} object as a deep copy based on the given {@link Noise} object.
+	 * Constructs a new {@link Noise} object that is a deep copy based on the given {@link Noise} object.
 	 * 
 	 * @param noise The {@link Noise} object being copied.
 	 * @since 1.0
@@ -73,8 +73,8 @@ public abstract class Noise {
 		this.width = noise.getWidth();
 		this.seed = noise.getSeed();
 		this.noiseArray = new double[this.height][this.width];
-		this.noiseMask = noise.getNoiseMask();
-		this.noiseImage = noise.getNoiseImage();
+		this.noiseMask = noise.getNoiseMask().clone();
+		this.noiseImage = generateNoiseImage(noise.getNoise());
 
 		copy2DArray(this.noiseArray, noise.getNoise());
 	}

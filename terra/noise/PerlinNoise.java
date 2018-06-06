@@ -1,34 +1,52 @@
 package terra.noise;
 
+/**
+ * The immutable programmatic representation of perlin noise.
+ * Objects store the results output by a {@link PerlinNoiseGenerator} with the specific corresponding parameters.
+ * 
+ * @since 1.0
+ * @author ChristopherWMM
+ */
 public class PerlinNoise extends Noise {
-	private int frequency;
-	private int octaves;
-	private double persistence;
-	private double lacunarity;
+	/** The non-zero integer initial frequency of this {@link PerlinNoise} object. */
+	private final int frequency;
 
-	static final int PERMUTATION_TABLE[] = new int[512];
-	static final int PERMUTATION_VALUES[] = {151,160,137,91,90,15,131,13,201,95,96,53,
-			194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,
-			234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,
-			174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,
-			83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,
-			65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,
-			188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,
-			147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,
-			183,170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,
-			22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,251,
-			34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,
-			49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,
-			138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180};
+	/** The non-zero integer number of octaves present in this {@link PerlinNoise} object. */
+	private final int octaves;
 
-	static { 
-		for (int x = 0; x < 256 ; x++) {
-			PERMUTATION_TABLE[256 + x] = PERMUTATION_TABLE[x] = PERMUTATION_VALUES[x]; 
-		}
-	}
+	/** The non-zero double persistence of this {@link PerlinNoise} object. */
+	private final double persistence;
 
+	/** The non-zero double lacunarity of this {@link PerlinNoise} object. */
+	private final double lacunarity;
+
+	/**
+	 * Constructs a new {@link PerlinNoise} object with the given values.
+	 * 
+	 * @param height The non-zero integer height of this {@link PerlinNoise} object.
+	 * @param width The non-zero integer width of this {@link PerlinNoise} object.
+	 * @param seed The long seed used to generate this {@link PerlinNoise} object.
+	 * @param noise The 2D double array containing the individual mask values of this {@link PerlinNoise} object.
+	 * @param noiseMask The {@link NoiseMask} being applied to this {@link PerlinNoise} object.
+	 * @param frequency The non-zero integer initial frequency of this {@link PerlinNoise} object.
+	 * @param octaves The non-zero integer number of octaves present in this {@link PerlinNoise} object.
+	 * @param persistence The non-zero double persistence of this {@link PerlinNoise} object.
+	 * @param lacunarity The non-zero double lacunarity of this {@link PerlinNoise} object.
+	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
+	 * @since 1.0
+	 */
 	PerlinNoise(int height, int width, long seed, double[][] noise, NoiseMask noiseMask, int frequency, int octaves, double persistence, double lacunarity) {
 		super(height, width, seed, noise, noiseMask);
+
+		if (frequency < 1) {
+			throw new IllegalArgumentException("A perlin noise map initial frequency must be a positive, non-zero value. " + frequency + " is too small.");
+		} else if (octaves < 1) {
+			throw new IllegalArgumentException("A perlin noise map octave count must be a positive, non-zero value. " + octaves + " is too small.");
+		} else if (persistence < Double.MIN_VALUE) {
+			throw new IllegalArgumentException("A perlin noise persistence must be a positive, non-zero value. " + persistence + " is too small.");
+		} else if (lacunarity < Double.MIN_VALUE) {
+			throw new IllegalArgumentException("A perlin noise lacunarity must be a positive, non-zero value. " + lacunarity + " is too small.");
+		}
 
 		this.frequency = frequency;
 		this.octaves = octaves;
@@ -36,6 +54,12 @@ public class PerlinNoise extends Noise {
 		this.lacunarity = lacunarity;
 	}
 
+	/**
+	 * Constructs a new {@link PerlinNoise} object that is a deep copy based on the given {@link PerlinNoise} object.
+	 * 
+	 * @param perlinNoise The {@link PerlinNoise} object being copied.
+	 * @since 1.0
+	 */
 	PerlinNoise(PerlinNoise perlinNoise) {
 		super(perlinNoise);
 
@@ -45,19 +69,54 @@ public class PerlinNoise extends Noise {
 		this.lacunarity = perlinNoise.getLacunarity();
 	}
 
+	/**
+	 * Returns the non-zero initial frequency of this {@link PerlinNoise} object.
+	 * 
+	 * @return The non-zero integer initial frequency of this {@link PerlinNoise} object.
+	 * @since 1.0
+	 */
 	public int getFrequency() {
-		return frequency;
+		return this.frequency;
 	}
 
+	/** 
+	 * Returns the non-zero number of octaves present in this {@link PerlinNoise} object.
+	 * 
+	 * @return The non-zero integer number of octaves present in this {@link PerlinNoise} object.
+	 * @since 1.0
+	 */
 	public int getOctaves() {
-		return octaves;
+		return this.octaves;
 	}
 
+	/** 
+	 * Returns the non-zero persistence of this {@link PerlinNoise} object.
+	 * 
+	 * @return The non-zero double persistence of this {@link PerlinNoise} object.
+	 * @since 1.0
+	 */
 	public double getPersistence() {
-		return persistence;
+		return this.persistence;
 	}
 
+	/** 
+	 * Returns the non-zero lacunarity of this {@link PerlinNoise} object.
+	 * 
+	 * @return The non-zero double lacunarity of this {@link PerlinNoise} object.
+	 * @since 1.0
+	 */
 	public double getLacunarity() {
-		return lacunarity;
+		return this.lacunarity;
+	}
+	
+
+	/**
+	 * Returns a new {@link PerlinNoise} object that is a deep copy of this {@link PerlinNoise} object.
+	 * 
+	 * @return A new {@link PerlinNoise} object that is a deep copy of this {@link PerlinNoise} object.
+	 * @since 1.0
+	 */
+	public PerlinNoise clone() {
+		return new PerlinNoise(this);
 	}
 }

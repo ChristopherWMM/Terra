@@ -73,13 +73,17 @@ public class WhiteNoiseGenerator implements Generator<WhiteNoise> {
 		return new WhiteNoise(this.height, this.width, this.seed, this.noise, this.noiseMask);
 	}
 
+	private double generateWhiteValue() {
+		return this.random.nextDouble();
+	}
+
 	private double[][] generateNoiseArray() {
 		double[][] noise = new double[this.height][this.width];
 		double[][] maskNoise = this.noiseMask.getMask();
 
 		for (int y = 0; y < this.height; y++) {
 			for (int x = 0; x < this.width; x++) {
-				noise[y][x] = this.random.nextDouble();
+				noise[y][x] = generateWhiteValue();
 				noise[y][x] = Math.max(0, noise[y][x] - maskNoise[y][x]);
 			}
 		}
