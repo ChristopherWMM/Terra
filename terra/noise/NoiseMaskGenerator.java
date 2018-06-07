@@ -2,7 +2,7 @@ package terra.noise;
 
 import java.util.Arrays;
 
-public class NoiseMaskGenerator implements Generator<NoiseMask> {
+public class NoiseMaskGenerator extends Generator<NoiseMask> {
 	private int height;
 	private int width;
 	private double intensity;

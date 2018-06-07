@@ -2,7 +2,7 @@ package terra.noise;
 
 import java.util.Random;
 
-public class WhiteNoiseGenerator implements Generator<WhiteNoise> {
+public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 	private int height;
 	private int width;
 	private long seed;

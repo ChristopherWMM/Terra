@@ -1,6 +1,6 @@
 package terra.noise;
 
-public class PerlinNoiseGenerator implements Generator<PerlinNoise> {
+public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 	private int height;
 	private int width;
 	private long seed;

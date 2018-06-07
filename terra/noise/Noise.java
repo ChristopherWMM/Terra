@@ -3,8 +3,8 @@ package terra.noise;
 import java.awt.image.BufferedImage;
 
 /**
- * The immutable programmatic representation of noise.
- * Objects store the results output by a {@link Noise} {@link Generator} with the specific corresponding parameters.
+ * The abstract superclass for all immutable programmatic representations of noise.
+ * Objects store the results output by a noise {@link Generator} with the specific corresponding parameters.
  * 
  * @since 1.0
  * @author ChristopherWMM
