@@ -32,9 +32,14 @@ Perlin noise, while random, is what is referred to as coherent meaning there is 
 | ![Seed: x][perlin-seed-x] | ![Seed: y][perlin-seed-y] |
 
 + Frequency: 
-  + **Definition**: The scale number of individual peaks and troughs found in one dimension of a single noise map octave.
-  + **Use**: 
-    ​
+  + **Definition**: The scale number of individual peaks and troughs found in each dimension of a single noise map octave.
+  + **Use**: Controls the initial x and y scale of the noise.
+
+|          *Frequency: 1*           |          *Frequency: 2*           | *Frequency: 4* |
+| :-----------------------: | :-----------------------: | :-----------------------: |
+| ![Frequency: 1][perlin-frequency-1] | ![Frequency: 2][perlin-frequency-2] | ![Frequency: 4][perlin-frequency-4] |
+###### 	\*Note: Linear interpolation has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between second level grid tiles.
+
 + Octave:
   + **Definition**: A single noise map which can be used independently or in compounding layers.
   + **Use**: 
@@ -73,9 +78,15 @@ Noise perlin = new PerlinNoiseGenerator()
 
 [white-noise-example]: https://i.imgur.com/kdvoLXs.gif
 [perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif
-[fade-function]: http://latex.codecogs.com/gif.latex?%246x%5E5-15x%5E4&plus;10x%5E3%24
-[noise-mask]: https://i.imgur.com/HgLPvlF.png
-[raw-perlin]: https://i.imgur.com/OXBXLNm.png
-[masked-perlin]: https://i.imgur.com/v9pjZlY.png
+[fade-function]: http://latex.codecogs.com/gif.latex?%246x%5E5-15x%5E4&amp;amp;amp;amp;amp;plus;10x%5E3%24
+
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."
+
+[perlin-frequency-1]: https://i.imgur.com/MwjNCIh.png "Perlin Noise with frequency 1."
+[perlin-frequency-2]: https://i.imgur.com/OuX2vRD.png "Perlin Noise with frequency 2."
+[perlin-frequency-4]: https://i.imgur.com/nj7vxrf.png "Perlin Noise with frequency 4."
+
+[noise-mask]: https://i.imgur.com/HgLPvlF.png "Raw Noise Mask."
+[raw-perlin]: https://i.imgur.com/OXBXLNm.png "Perlin Noise with no Noise Mask."
+[masked-perlin]: https://i.imgur.com/v9pjZlY.png "Perlin Noise with a Noise Mask."
