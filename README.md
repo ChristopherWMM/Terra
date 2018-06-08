@@ -2,7 +2,7 @@
 
 ## Perlin Noise Overview
 
-Perlin noise, while random, is what is referred to as coherent meaning there is gradual change between values.
+Perlin noise, while random, is what is referred to as *coherent noise* meaning there is gradual change between values. This can be clearly visualized by translating sections of a given noise map. When done to random noise, the section blends in immediately after its movement stops. However, when done to a coherent noise, like Perlin, the gradual change between values is interrupted and ends up being plainly obvious as seen below.
 
 |          *White Noise*           |          *Perlin Noise*           |
 | :-----------------------: | :-----------------------: |
@@ -11,8 +11,8 @@ Perlin noise, while random, is what is referred to as coherent meaning there is 
 #### Perlin Noise Algorithm
 
 1. **Definition:**
-   1. Second level grid generation.
-   2. Pseudorandom vector generation at each second level grid vertex.
+   1. Perlin grid generation.
+   2. Pseudorandom vector generation at each Perlin grid vertex.
 2. **Calculation:** 
    1. Calculate the Dot Product between each first level grid value and its four respective second level grid vertex vectors. This ensures that each point in adjacent second level grid quadrants share two vectors.
 3. **Interpolation:**
@@ -33,12 +33,12 @@ Perlin noise, while random, is what is referred to as coherent meaning there is 
 
 + Frequency: 
   + **Definition**: The scale number of individual peaks and troughs found in each dimension of a single noise map octave.
-  + **Use**: Controls the initial x and y scale of the noise.
+  + **Use**: Controls the initial scale along the x and y axes of the Perlin noise map. As seen below, increasing the initial frequency by a factor of two causes the previous noise map to be present, but only represent a quarter of the subsequent grid.
 
 |          *Frequency: 1*           |          *Frequency: 2*           | *Frequency: 4* |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | ![Frequency: 1][perlin-frequency-1] | ![Frequency: 2][perlin-frequency-2] | ![Frequency: 4][perlin-frequency-4] |
-###### 	\*Note: Linear interpolation has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between second level grid tiles.
+###### \* Note: The sigmoid fade function has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between second level grid tiles.
 
 + Octave:
   + **Definition**: A single noise map which can be used independently or in compounding layers.
@@ -46,10 +46,12 @@ Perlin noise, while random, is what is referred to as coherent meaning there is 
     ​
 + Persistence:
   + **Definition**: The amplitude multiplier between subsequently noise map octaves.
+  + **Amplitude function used:** ![Amplitude Function][amplitude-function]
   + **Use**: 
     ​
 + Lacunarity:
   + **Definition**: The frequency multiplier between subsequently noise map octaves.
+  + **Frequency function used:** ![Frequency Function][frequency-function]
   + **Use**: 
     ​
 + Noise Mask:
@@ -76,9 +78,10 @@ Noise perlin = new PerlinNoiseGenerator()
 			.generate();
 ```
 
-[white-noise-example]: https://i.imgur.com/kdvoLXs.gif
-[perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif
-[fade-function]: http://latex.codecogs.com/gif.latex?%246x%5E5-15x%5E4&amp;amp;amp;amp;amp;plus;10x%5E3%24
+[white-noise-example]: https://i.imgur.com/kdvoLXs.gif "White Noise"
+[perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif "Perlin Noise"
+
+[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
 
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."
@@ -86,6 +89,10 @@ Noise perlin = new PerlinNoiseGenerator()
 [perlin-frequency-1]: https://i.imgur.com/MwjNCIh.png "Perlin Noise with frequency 1."
 [perlin-frequency-2]: https://i.imgur.com/OuX2vRD.png "Perlin Noise with frequency 2."
 [perlin-frequency-4]: https://i.imgur.com/nj7vxrf.png "Perlin Noise with frequency 4."
+
+[amplitude-function]: http://latex.codecogs.com/gif.latex?amplitude%20%3D%20persistence%7B%5E%7B%28octaves%20-%201%29%7D%7D "Perlin Noise persistence function LaTeX."
+
+[frequency-function]: http://latex.codecogs.com/gif.latex?frequency%20%3D%20%28initial%20frequency%29%20*%20lacunarity%7B%5E%7B%28octaves%20-%201%29%7D%7D "Perlin Noise frequency function LaTeX."
 
 [noise-mask]: https://i.imgur.com/HgLPvlF.png "Raw Noise Mask."
 [raw-perlin]: https://i.imgur.com/OXBXLNm.png "Perlin Noise with no Noise Mask."
