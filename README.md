@@ -14,9 +14,9 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
    1. Perlin grid generation.
    2. Pseudorandom vector generation at each Perlin grid vertex.
 2. **Calculation:** 
-   1. Calculate the Dot Product between each first level grid value and its four respective second level grid vertex vectors. This ensures that each point in adjacent second level grid quadrants share two vectors.
+   1. Calculate the Dot Product between each pixel position and its four respective Perlin grid vertex vectors. This ensures that each point in adjacent Perlin grid quadrants share two pseudorandom vectors.
 3. **Interpolation:**
-   1. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between second level grid quadrants.
+   1. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between Perlin grid quadrants.
       + **Fade function used:** ![Fade Function][fade-function]
    2. Calculate the local minimum and maximum of the given noise map, then rescale the individual noise values back onto the interval of [0-1] through inverse linear interpolation.
       ​
@@ -38,7 +38,7 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 |          *Frequency: 1*           |          *Frequency: 2*           | *Frequency: 4* |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | ![Frequency: 1][perlin-frequency-1] | ![Frequency: 2][perlin-frequency-2] | ![Frequency: 4][perlin-frequency-4] |
-###### \* Note: The sigmoid fade function has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between second level grid tiles.
+###### \* Note: The sigmoid fade function has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between Perlin grid quadrants.
 
 + Octave:
   + **Definition**: A single noise map which can be used independently or in compounding layers.
@@ -67,14 +67,14 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 
 ```java
 Noise perlin = new PerlinNoiseGenerator()
-			.height(512)
-			.width(512)
-			.seed(0)
-			.frequency(1)
-			.octaves(10)
-			.persistence(0.5)
-			.lacunarity(2.8)
-			.noiseMask(0.5)
+			.height(512) // The desired (positive, non-zero, integer) height of the generated PerlinNoise object.
+			.width(512) // The desired (positive, non-zero, integer) width of the generated PerlinNoise object.
+			.seed(0) // The desired (long) seed used when generating the PerlinNoise object.
+			.frequency(1) // The desired (positive, non-zero integer) initial frequency of the generated PerlinNoise object.
+			.octaves(10) // The desired (positive, non-zero, integer) number of octaves present in the generated PerlinNoise object.
+			.persistence(0.5) // The desired (positive, non-zero, double) persistence of the generated PerlinNoise object.
+			.lacunarity(2.8) // The desired (positive, non-zero, double) lacunarity of the generated PerlinNoise object.
+			.noiseMask(0.5) // The desired (positive, [0-1], double) intensity of the NoiseMask being applied to the generated PerlinNoise object.
 			.generate();
 ```
 
