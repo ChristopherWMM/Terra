@@ -67,23 +67,23 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 
 ```java
 Noise perlin = new PerlinNoiseGenerator()
-			// The desired (positive, non-zero, integer) height of the generated PerlinNoise object.
+		// The desired (positive, non-zero, integer) height of the generated PerlinNoise object.
     		.height(512)
-			// The desired (positive, non-zero, integer) width of the generated PerlinNoise object.
+		// The desired (positive, non-zero, integer) width of the generated PerlinNoise object.
     		.width(512)
-			// The desired (long) seed used when generating the PerlinNoise object.
+		// The desired (long) seed used when generating the PerlinNoise object.
     		.seed(0)
-			// The desired (positive, non-zero integer) initial frequency of the generated PerlinNoise object.
+		// The desired (positive, non-zero integer) initial frequency of the generated PerlinNoise object.
     		.frequency(1)
-			// The desired (positive, non-zero, integer) number of octaves present in the generated PerlinNoise object.
+		// The desired (positive, non-zero, integer) number of octaves present in the generated PerlinNoise object.
     		.octaves(10)
-			// The desired (positive, non-zero, double) persistence of the generated PerlinNoise object.
+		// The desired (positive, non-zero, double) persistence of the generated PerlinNoise object.
     		.persistence(0.5)
-			// The desired (positive, non-zero, double) lacunarity of the generated PerlinNoise object.
+		// The desired (positive, non-zero, double) lacunarity of the generated PerlinNoise object.
     		.lacunarity(2.8)
-			// The desired (positive, [0-1], double) intensity of the NoiseMask being applied to the generated PerlinNoise object.
+		// The desired (positive, [0-1], double) intensity of the NoiseMask being applied to the generated PerlinNoise object.
     		.noiseMask(0.5)
-			.generate();
+		.generate();
 ```
 
 [white-noise-example]: https://i.imgur.com/kdvoLXs.gif "White Noise"
