@@ -1,6 +1,5 @@
 package terra.noise.mask;
-
-import java.awt.image.BufferedImage;
+import terra.gui.TerraImage;
 
 /**
  * The immutable programmatic representation of a noise mask.
@@ -22,8 +21,8 @@ public class NoiseMask {
 	/** The 2D double array containing the individual mask values of this {@link NoiseMask} object. */
 	private final double[][] maskArray;
 
-	/** The {@link BufferedImage} visual representation of this {@link NoiseMask} object. */
-	private final BufferedImage maskImage;
+	/** The {@link TerraImage} visual representation of this {@link NoiseMask} object. */
+	private final TerraImage maskImage;
 
 	/**
 	 * Constructs a new {@link NoiseMask} object with the given values.
@@ -67,10 +66,8 @@ public class NoiseMask {
 		this.height = noiseMask.getHeight();
 		this.width = noiseMask.getWidth();
 		this.intensity = noiseMask.getIntensity();
-		this.maskArray = new double[this.height][this.width];
-		this.maskImage = generateMaskImage(noiseMask.getMask());
-
-		copy2DArray(this.maskArray, noiseMask.getMask());
+		this.maskArray = noiseMask.getMask();
+		this.maskImage = generateMaskImage(this.maskArray);
 	}
 
 	/**
@@ -109,8 +106,8 @@ public class NoiseMask {
 	 * @return The grayscale {@link BufferedImage} visual representation of the given 2D double array.
 	 * @since 1.0
 	 */
-	private BufferedImage generateMaskImage(final double[][] mask) {
-		BufferedImage maskImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
+	private TerraImage generateMaskImage(final double[][] mask) {
+		TerraImage maskImage = new TerraImage(this.getWidth(), this.getHeight(), TerraImage.TYPE_INT_ARGB);
 
 		for (int x = 0; x < this.width; x++) {
 			for (int y = 0; y < this.height; y++) {
@@ -153,24 +150,27 @@ public class NoiseMask {
 	}
 
 	/**
-	 * Returns the 2D array containing the individual mask values of this {@link NoiseMask} object. 
+	 * Returns a 2D array containing the individual mask values of this {@link NoiseMask} object. 
 	 * Values within the array are within the interval <b>[0.0 - 1.0]</b> where 1.0 indicates the corresponding value should be completely masked and 0.0 indicates the value should not be masked at all.
 	 * 
-	 * @return The 2D double array containing the individual mask values of this {@link NoiseMask} object.
+	 * @return A 2D double array containing the individual mask values of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
 	public double[][] getMask() {
-		return this.maskArray;
+		double[][] maskArrayCopy = new double[this.height][this.width];
+		copy2DArray(maskArrayCopy, this.maskArray);
+
+		return maskArrayCopy;
 	}
 
 	/**
-	 * Returns the visual representation of this {@link NoiseMask} object.
+	 * Returns a visual representation of this {@link NoiseMask} object.
 	 * 
-	 * @return The {@link BufferedImage} visual representation of this {@link NoiseMask} object.
+	 * @return A {@link TerraImage} visual representation of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
-	public BufferedImage getMaskImage() {
-		return this.maskImage;
+	public TerraImage getMaskImage() {
+		return this.maskImage.clone();
 	}
 
 	/**

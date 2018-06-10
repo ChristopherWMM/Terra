@@ -1,22 +1,20 @@
 package terra.gui;
 
-import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class ImageFrame extends JFrame {
 	private final String TITLE;
-	private final BufferedImage ICON;
+	private final TerraImage ICON;
 	private final int WIDTH;
 	private final int HEIGHT;
 
-	public ImageFrame(final BufferedImage image) {
+	public ImageFrame(final TerraImage image) {
 		this("", image, false);
 	}
 
-	public ImageFrame(final String title, final BufferedImage image, final boolean resizable) {
+	public ImageFrame(final String title, final TerraImage image, final boolean resizable) {
 		this.TITLE = title;
 		this.ICON = image;
 		this.HEIGHT = image.getHeight();

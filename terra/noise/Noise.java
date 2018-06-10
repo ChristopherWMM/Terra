@@ -1,7 +1,6 @@
 package terra.noise;
 
-import java.awt.image.BufferedImage;
-
+import terra.gui.TerraImage;
 import terra.noise.mask.NoiseMask;
 
 /**
@@ -27,8 +26,8 @@ public abstract class Noise {
 	/** The {@link NoiseMask} being applied to this {@link Noise} object. */
 	private final NoiseMask noiseMask;
 
-	/** The {@link BufferedImage} visual representation of this {@link Noise} object. */
-	private final BufferedImage noiseImage;
+	/** The {@link TerraImage} visual representation of this {@link Noise} object. */
+	private final TerraImage noiseImage;
 
 	/**
 	 * Constructs a new {@link Noise} object with the given values.
@@ -74,11 +73,9 @@ public abstract class Noise {
 		this.height = noise.getHeight();
 		this.width = noise.getWidth();
 		this.seed = noise.getSeed();
-		this.noiseArray = new double[this.height][this.width];
+		this.noiseArray = noise.getNoise();
 		this.noiseMask = noise.getNoiseMask().clone();
-		this.noiseImage = generateNoiseImage(noise.getNoise());
-
-		copy2DArray(this.noiseArray, noise.getNoise());
+		this.noiseImage = generateNoiseImage(this.noiseArray);
 	}
 
 	/**
@@ -117,8 +114,8 @@ public abstract class Noise {
 	 * @return The grayscale {@link BufferedImage} visual representation of the given 2D double array.
 	 * @since 1.0
 	 */
-	private BufferedImage generateNoiseImage(final double[][] noise) {
-		BufferedImage noiseImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
+	private TerraImage generateNoiseImage(final double[][] noise) {
+		TerraImage noiseImage = new TerraImage(this.getWidth(), this.getHeight(), TerraImage.TYPE_INT_ARGB);
 
 		for (int x = 0; x < this.width; x++) {
 			for (int y = 0; y < this.height; y++) {
@@ -160,14 +157,17 @@ public abstract class Noise {
 	}
 
 	/**
-	 * Returns the 2D array containing the individual noise values of this {@link Noise} object. 
+	 * Returns a 2D array containing the individual noise values of this {@link Noise} object. 
 	 * Values within the array are within the interval <b>[0.0 - 1.0]</b>.
 	 * 
-	 * @return The 2D double array containing the individual noise values of this {@link Noise} object.
+	 * @return A 2D double array containing the individual noise values of this {@link Noise} object.
 	 * @since 1.0
 	 */
 	public double[][] getNoise() {
-		return this.noiseArray;
+		double[][] noiseArrayCopy = new double[this.height][this.width];
+		copy2DArray(noiseArrayCopy, this.noiseArray);
+
+		return noiseArrayCopy;
 	}
 
 	/**
@@ -177,16 +177,16 @@ public abstract class Noise {
 	 * @since 1.0
 	 */
 	public NoiseMask getNoiseMask() {
-		return this.noiseMask;
+		return this.noiseMask.clone();
 	}
 
 	/**
-	 * Returns the visual representation of this {@link Noise} object.
+	 * Returns a visual representation of this {@link Noise} object.
 	 * 
-	 * @return The {@link BufferedImage} visual representation of this {@link Noise} object.
+	 * @return A {@link TerraImage} visual representation of this {@link Noise} object.
 	 * @since 1.0
 	 */
-	public BufferedImage getNoiseImage() {
-		return noiseImage;
+	public TerraImage getNoiseImage() {
+		return noiseImage.clone();
 	}
 }

@@ -67,21 +67,29 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 
 ```java
 Noise perlin = new PerlinNoiseGenerator()
-			.height(512) // The desired (positive, non-zero, integer) height of the generated PerlinNoise object.
-			.width(512) // The desired (positive, non-zero, integer) width of the generated PerlinNoise object.
-			.seed(0) // The desired (long) seed used when generating the PerlinNoise object.
-			.frequency(1) // The desired (positive, non-zero integer) initial frequency of the generated PerlinNoise object.
-			.octaves(10) // The desired (positive, non-zero, integer) number of octaves present in the generated PerlinNoise object.
-			.persistence(0.5) // The desired (positive, non-zero, double) persistence of the generated PerlinNoise object.
-			.lacunarity(2.8) // The desired (positive, non-zero, double) lacunarity of the generated PerlinNoise object.
-			.noiseMask(0.5) // The desired (positive, [0-1], double) intensity of the NoiseMask being applied to the generated PerlinNoise object.
+			// The desired (positive, non-zero, integer) height of the generated PerlinNoise object.
+    		.height(512)
+			// The desired (positive, non-zero, integer) width of the generated PerlinNoise object.
+    		.width(512)
+			// The desired (long) seed used when generating the PerlinNoise object.
+    		.seed(0)
+			// The desired (positive, non-zero integer) initial frequency of the generated PerlinNoise object.
+    		.frequency(1)
+			// The desired (positive, non-zero, integer) number of octaves present in the generated PerlinNoise object.
+    		.octaves(10)
+			// The desired (positive, non-zero, double) persistence of the generated PerlinNoise object.
+    		.persistence(0.5)
+			// The desired (positive, non-zero, double) lacunarity of the generated PerlinNoise object.
+    		.lacunarity(2.8)
+			// The desired (positive, [0-1], double) intensity of the NoiseMask being applied to the generated PerlinNoise object.
+    		.noiseMask(0.5)
 			.generate();
 ```
 
 [white-noise-example]: https://i.imgur.com/kdvoLXs.gif "White Noise"
 [perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif "Perlin Noise"
 
-[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
+[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
 
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."

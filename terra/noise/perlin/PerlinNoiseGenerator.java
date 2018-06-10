@@ -176,10 +176,6 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return value;
 	}
 
-	private double generatePerlinValue(final int x, final int y) {
-		return generatePerlinValue(x, y, 1);
-	}
-
 	private double generatePerlinValue(final int x, final int y, final double frequency) {
 		double doubleX = (double) x / this.width;
 		double doubleY = (double) y / this.height;

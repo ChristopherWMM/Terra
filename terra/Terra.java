@@ -48,7 +48,7 @@ public class Terra {
 									.seed(0)
 									.distanceMode(VoronoiDistance.Euclidean)
 									.frequency(1)
-									.noiseMask(0)
+									.noiseMask(0.0)
 									.generate();
 
 		new NoiseFrame(voronoi);
