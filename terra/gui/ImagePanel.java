@@ -6,13 +6,13 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 class ImagePanel extends JPanel {
-	private BufferedImage image;
+	private final BufferedImage image;
 
-	public ImagePanel(BufferedImage image) {
+	public ImagePanel(final BufferedImage image) {
 		this.image = image;
 	}
 
-	public void paintComponent(Graphics graphics) {
+	public void paintComponent(final Graphics graphics) {
 		graphics.drawImage(getImage(), 0, 0, null);
 	}
 

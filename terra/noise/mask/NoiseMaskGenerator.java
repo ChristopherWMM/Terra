@@ -17,7 +17,7 @@ public class NoiseMaskGenerator extends Generator<NoiseMask> {
 		this.mask = new double[this.height][this.width];
 	}
 
-	public NoiseMaskGenerator height(int height) throws IllegalArgumentException {
+	public NoiseMaskGenerator height(final int height) throws IllegalArgumentException {
 		if (height < 1) {
 			throw new IllegalArgumentException("A noise mask height must be a positive, non-zero value. " + height + " is too small.");
 		}
@@ -26,7 +26,7 @@ public class NoiseMaskGenerator extends Generator<NoiseMask> {
 		return this;
 	}
 
-	public NoiseMaskGenerator width(int width) throws IllegalArgumentException {
+	public NoiseMaskGenerator width(final int width) throws IllegalArgumentException {
 		if (width < 1) {
 			throw new IllegalArgumentException("A noise mask width must be a positive, non-zero value. " + width + " is too small.");
 		}
@@ -35,7 +35,7 @@ public class NoiseMaskGenerator extends Generator<NoiseMask> {
 		return this;
 	}
 
-	public NoiseMaskGenerator intensity(double intensity) throws IllegalArgumentException {
+	public NoiseMaskGenerator intensity(final double intensity) throws IllegalArgumentException {
 		if (intensity < 0.0 || intensity > 1.0) {
 			throw new IllegalArgumentException("A noise mask intensity must be a positive value between zero and one. " + intensity + " is outside that interval.");
 		}
@@ -62,7 +62,7 @@ public class NoiseMaskGenerator extends Generator<NoiseMask> {
 		return mask;
 	}
 
-	private double generateMaskValue(int x, int y) {
+	private double generateMaskValue(final int x, final int y) {
 		double value = 1.0;
 		double minVal = (((this.height + this.width) / 2) / 100) / (intensity * 100);
 		double maxVal = (((this.height + this.width) / 2) / 100) * (intensity * 100);
@@ -89,11 +89,11 @@ public class NoiseMaskGenerator extends Generator<NoiseMask> {
 		}
 	}
 
-	private double fade(double noiseValue) {
+	private double fade(final double noiseValue) {
 		return noiseValue * noiseValue * noiseValue * (noiseValue * (noiseValue * 6 - 15) + 10); 
 	}
 
-	private int calculateDistanceToNearestEdge(int x, int y) {
+	private int calculateDistanceToNearestEdge(final int x, final int y) {
 		int[] distances = new int[] {x, y, (this.width), (this.height), (this.width - x), (this.height - y)};
 		Arrays.sort(distances);
 

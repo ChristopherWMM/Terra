@@ -14,7 +14,7 @@ public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 	private double noiseMaskIntensity;
 	private NoiseMask noiseMask;
 
-	private Random random;
+	private final Random random;
 
 	public WhiteNoiseGenerator() {
 		this.height = 512;
@@ -31,7 +31,7 @@ public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 		this.random = new Random();
 	}
 
-	public WhiteNoiseGenerator height(int height) throws IllegalArgumentException {
+	public WhiteNoiseGenerator height(final int height) throws IllegalArgumentException {
 		if (height < 1) {
 			throw new IllegalArgumentException("A white noise map height must be a positive, non-zero value. " + height + " is too small.");
 		}
@@ -40,7 +40,7 @@ public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 		return this;
 	}
 
-	public WhiteNoiseGenerator width(int width) throws IllegalArgumentException {
+	public WhiteNoiseGenerator width(final int width) throws IllegalArgumentException {
 		if (width < 1) {
 			throw new IllegalArgumentException("A white noise map width must be a positive, non-zero value. " + width + " is too small.");
 		}
@@ -49,13 +49,13 @@ public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 		return this;
 	}
 
-	public WhiteNoiseGenerator seed(long seed) {
+	public WhiteNoiseGenerator seed(final long seed) {
 		this.seed = seed;
 		this.random.setSeed(seed);
 		return this;
 	}
 
-	public WhiteNoiseGenerator noiseMask(double noiseMaskIntensity) throws IllegalArgumentException {
+	public WhiteNoiseGenerator noiseMask(final double noiseMaskIntensity) throws IllegalArgumentException {
 		if (noiseMaskIntensity < 0 || noiseMaskIntensity > 1) {
 			throw new IllegalArgumentException("A white noise mask intensity must be a positive value between zero and one. " + noiseMaskIntensity + " is outside that interval.");
 		}

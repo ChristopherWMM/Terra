@@ -31,7 +31,7 @@ public class Terra {
 							.intensity(0.5)
 							.generate();
 
-		new ImageFrame("", mask.getMaskImage(), false);
+		new ImageFrame(mask.getMaskImage());
 
 		Noise white = new WhiteNoiseGenerator()
 							.height(256)

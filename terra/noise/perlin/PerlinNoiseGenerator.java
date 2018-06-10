@@ -60,7 +60,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		this.minNoiseValue = Double.MAX_VALUE;
 	}
 
-	public PerlinNoiseGenerator height(int height) throws IllegalArgumentException {
+	public PerlinNoiseGenerator height(final int height) throws IllegalArgumentException {
 		if (height < 1) {
 			throw new IllegalArgumentException("A perlin noise map height must be a positive, non-zero value. " + height + " is too small.");
 		}
@@ -69,7 +69,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return this;
 	}
 
-	public PerlinNoiseGenerator width(int width) throws IllegalArgumentException {
+	public PerlinNoiseGenerator width(final int width) throws IllegalArgumentException {
 		if (width < 1) {
 			throw new IllegalArgumentException("A perlin noise map width must be a positive, non-zero value. " + width + " is too small.");
 		}
@@ -78,12 +78,12 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return this;
 	}
 
-	public PerlinNoiseGenerator seed(long seed) {
+	public PerlinNoiseGenerator seed(final long seed) {
 		this.seed = seed;
 		return this;
 	}
 
-	public PerlinNoiseGenerator noiseMask(double noiseMaskIntensity) throws IllegalArgumentException {
+	public PerlinNoiseGenerator noiseMask(final double noiseMaskIntensity) throws IllegalArgumentException {
 		if (noiseMaskIntensity < 0 || noiseMaskIntensity > 1) {
 			throw new IllegalArgumentException("A perlin noise mask intensity must be a positive value between zero and one. " + noiseMaskIntensity + " is outside that interval.");
 		}
@@ -92,7 +92,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return this;
 	}
 
-	public PerlinNoiseGenerator frequency(int frequency) throws IllegalArgumentException {
+	public PerlinNoiseGenerator frequency(final int frequency) throws IllegalArgumentException {
 		if (frequency < 1) {
 			throw new IllegalArgumentException("A perlin noise map initial frequency must be a positive, non-zero value. " + frequency + " is too small.");
 		}
@@ -101,7 +101,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return this;
 	}
 
-	public PerlinNoiseGenerator octaves(int octaves) throws IllegalArgumentException {
+	public PerlinNoiseGenerator octaves(final int octaves) throws IllegalArgumentException {
 		if (octaves < 1) {
 			throw new IllegalArgumentException("A perlin noise map octave count must be a positive, non-zero value. " + octaves + " is too small.");
 		}
@@ -110,7 +110,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return this;
 	}
 
-	public PerlinNoiseGenerator persistence(double persistence) {
+	public PerlinNoiseGenerator persistence(final double persistence) {
 		if (persistence < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("A perlin noise persistence must be a positive, non-zero value. " + persistence + " is too small.");
 		}
@@ -119,7 +119,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return this;
 	}
 
-	public PerlinNoiseGenerator lacunarity(double lacunarity) {
+	public PerlinNoiseGenerator lacunarity(final double lacunarity) {
 		if (lacunarity < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("A perlin noise lacunarity must be a positive, non-zero value. " + lacunarity + " is too small.");
 		}
@@ -160,7 +160,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return noise;
 	}
 
-	protected double generateOctaveNoiseValue(int x, int y) {
+	protected double generateOctaveNoiseValue(final int x, final int y) {
 		double value = 0;
 		double amplitude = 1;
 		double frequency = this.frequency;
@@ -176,11 +176,11 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return value;
 	}
 
-	private double generatePerlinValue(int x, int y) {
+	private double generatePerlinValue(final int x, final int y) {
 		return generatePerlinValue(x, y, 1);
 	}
 
-	private double generatePerlinValue(int x, int y, double frequency) {
+	private double generatePerlinValue(final int x, final int y, final double frequency) {
 		double doubleX = (double) x / this.width;
 		double doubleY = (double) y / this.height;
 
@@ -213,7 +213,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return (lerpedY + 1) / 2;
 	}
 
-	private double[][] smoothNoiseArray(double[][] noise) {
+	private double[][] smoothNoiseArray(final double[][] noise) {
 		double[][] smoothNoise = new double[this.height][this.width];
 		double[][] maskNoise = this.noiseMask.getMask();
 
@@ -227,19 +227,19 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return smoothNoise;
 	}
 
-	private double fade(double noiseValue) {
+	private double fade(final double noiseValue) {
 		return noiseValue * noiseValue * noiseValue * (noiseValue * (noiseValue * 6 - 15) + 10); 
 	}
 
-	private double lerp(double amount, double low, double high) {
+	private double lerp(final double amount, final double low, final double high) {
 		return low + amount * (high - low);
 	}
 
-	private double inverseLerp(double amount, double low, double high) {
+	private double inverseLerp(final double amount, final double low, final double high) {
 		return ((amount - low) / (high - low));
 	}
 
-	private double calculateDotProduct(int corner, double x, double y) {
+	private double calculateDotProduct(final int corner, final double x, final double y) {
 		switch(corner % 4) {
 			case 0:
 				return x + y;

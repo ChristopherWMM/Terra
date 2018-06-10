@@ -2,7 +2,6 @@ package terra.noise.voronoi;
 
 import terra.noise.Noise;
 import terra.noise.mask.NoiseMask;
-import terra.noise.perlin.PerlinNoise;
 
 /**
  * The immutable programmatic representation of voronoi noise.
@@ -12,7 +11,9 @@ import terra.noise.perlin.PerlinNoise;
  * @author ChristopherWMM
  */
 public class VoronoiNoise extends Noise {
+	/** The methodology for calculating distance within this {@link VoronoiNoise} object. */
 	private final VoronoiDistance distanceMode;
+
 	/** The non-zero integer initial frequency of this {@link VoronoiNoise} object. */
 	private final int frequency;
 
@@ -22,13 +23,13 @@ public class VoronoiNoise extends Noise {
 	 * @param height The non-zero integer height of this {@link VoronoiNoise} object.
 	 * @param width The non-zero integer width of this {@link VoronoiNoise} object.
 	 * @param seed The long seed used to generate this {@link VoronoiNoise} object.
-	 * @param noise The 2D double array containing the individual mask values of this {@link PerlinNoise} object.
+	 * @param noise The 2D double array containing the individual mask values of this {@link VoronoiNoise} object.
 	 * @param noiseMask The {@link NoiseMask} being applied to this {@link VoronoiNoise} object.
 	 * @param frequency The non-zero integer initial frequency of this {@link VoronoiNoise} object.
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	VoronoiNoise(int height, int width, long seed, double[][] noiseArray, NoiseMask noiseMask, VoronoiDistance distanceMode, int frequency) {
+	VoronoiNoise(final int height, final int width, final long seed, final double[][] noiseArray, final NoiseMask noiseMask, final VoronoiDistance distanceMode, final int frequency) {
 		super(height, width, seed, noiseArray, noiseMask);
 
 		if (frequency < 1) {
@@ -47,7 +48,7 @@ public class VoronoiNoise extends Noise {
 	 * @param perlinNoise The {@link VoronoiNoise} object being copied.
 	 * @since 1.0
 	 */
-	VoronoiNoise(VoronoiNoise voronoiNoise) {
+	VoronoiNoise(final VoronoiNoise voronoiNoise) {
 		super(voronoiNoise);
 
 		this.distanceMode = voronoiNoise.getDistanceMode();

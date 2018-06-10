@@ -8,11 +8,15 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class ImageFrame extends JFrame {
 	private final String TITLE;
-	private BufferedImage ICON;
+	private final BufferedImage ICON;
 	private final int WIDTH;
 	private final int HEIGHT;
 
-	public ImageFrame(String title, BufferedImage image, boolean resizable) {
+	public ImageFrame(final BufferedImage image) {
+		this("", image, false);
+	}
+
+	public ImageFrame(final String title, final BufferedImage image, final boolean resizable) {
 		this.TITLE = title;
 		this.ICON = image;
 		this.HEIGHT = image.getHeight();
@@ -33,7 +37,7 @@ public class ImageFrame extends JFrame {
 			setDefaultLookAndFeelDecorated(true);
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			
+			e.printStackTrace();
 		}
 
 		setVisible(true);

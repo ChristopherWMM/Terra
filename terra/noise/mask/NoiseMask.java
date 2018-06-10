@@ -35,7 +35,7 @@ public class NoiseMask {
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	NoiseMask(int height, int width, double intensity, double[][] maskArray) {
+	NoiseMask(final int height, final int width, final double intensity, final double[][] maskArray) {
 		if (height < 1) {
 			throw new IllegalArgumentException("A noise mask height must be a positive, non-zero value. " + height + " is too small.");
 		} else if (width < 1) {
@@ -63,7 +63,7 @@ public class NoiseMask {
 	 * @param noiseMask The {@link NoiseMask} object being copied.
 	 * @since 1.0
 	 */
-	NoiseMask(NoiseMask noiseMask) {
+	NoiseMask(final NoiseMask noiseMask) {
 		this.height = noiseMask.getHeight();
 		this.width = noiseMask.getWidth();
 		this.intensity = noiseMask.getIntensity();
@@ -80,7 +80,7 @@ public class NoiseMask {
 	 * @param source The 2D array being copied into the given target.
 	 * @since 1.0
 	 */
-	private void copy2DArray(double[][] target, double[][] source) {
+	private void copy2DArray(final double[][] target, final double[][] source) {
 		for (int x = 0; x < source.length; x++) {
 			System.arraycopy(source[x], 0, target[x], 0, source[x].length);
 		}
@@ -93,7 +93,7 @@ public class NoiseMask {
 	 * @return The grayscale integer ARGB color corresponding to the given {@link NoiseMask} value.
 	 * @since 1.0
 	 */
-	private int getGrayscaleMaskColor(double maskValue) {
+	private int getGrayscaleMaskColor(final double maskValue) {
 		int blue = (int)(maskValue * 0xFF);
 		int green = blue * 0x100;
 		int red = blue * 0x10000;
@@ -109,7 +109,7 @@ public class NoiseMask {
 	 * @return The grayscale {@link BufferedImage} visual representation of the given 2D double array.
 	 * @since 1.0
 	 */
-	private BufferedImage generateMaskImage(double[][] mask) {
+	private BufferedImage generateMaskImage(final double[][] mask) {
 		BufferedImage maskImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 		for (int x = 0; x < this.width; x++) {

@@ -41,7 +41,7 @@ public abstract class Noise {
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	protected Noise(int height, int width, long seed, double[][] noiseArray, NoiseMask noiseMask) {
+	protected Noise(final int height, final int width, final long seed, final double[][] noiseArray, final NoiseMask noiseMask) {
 		if (height < 1) {
 			throw new IllegalArgumentException("A noise map height must be a positive, non-zero value. " + height + " is too small.");
 		} else if (width < 1) {
@@ -70,7 +70,7 @@ public abstract class Noise {
 	 * @param noise The {@link Noise} object being copied.
 	 * @since 1.0
 	 */
-	protected Noise(Noise noise) {
+	protected Noise(final Noise noise) {
 		this.height = noise.getHeight();
 		this.width = noise.getWidth();
 		this.seed = noise.getSeed();
@@ -88,7 +88,7 @@ public abstract class Noise {
 	 * @param source The 2D array being copied into the given target.
 	 * @since 1.0
 	 */
-	private void copy2DArray(double[][] target, double[][] source) {
+	private void copy2DArray(final double[][] target, final double[][] source) {
 		for (int x = 0; x < source.length; x++) {
 			System.arraycopy(source[x], 0, target[x], 0, source[x].length);
 		}
@@ -101,7 +101,7 @@ public abstract class Noise {
 	 * @return The grayscale integer ARGB color corresponding to the given {@link Noise} value.
 	 * @since 1.0
 	 */
-	private int getGrayscaleNoiseColor(double noiseValue) {
+	private int getGrayscaleNoiseColor(final double noiseValue) {
 		int blue = (int)(noiseValue * 0xFF);
 		int green = blue * 0x100;
 		int red = blue * 0x10000;
@@ -117,7 +117,7 @@ public abstract class Noise {
 	 * @return The grayscale {@link BufferedImage} visual representation of the given 2D double array.
 	 * @since 1.0
 	 */
-	private BufferedImage generateNoiseImage(double[][] noise) {
+	private BufferedImage generateNoiseImage(final double[][] noise) {
 		BufferedImage noiseImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 		for (int x = 0; x < this.width; x++) {

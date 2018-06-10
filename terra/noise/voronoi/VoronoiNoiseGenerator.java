@@ -16,7 +16,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 	private double noiseMaskIntensity;
 	private NoiseMask noiseMask;
 
-	private Random random;
+	private final Random random;
 
 	public VoronoiNoiseGenerator() {
 		this.height = 512;
@@ -35,7 +35,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		this.random = new Random();
 	}
 
-	public VoronoiNoiseGenerator height(int height) throws IllegalArgumentException {
+	public VoronoiNoiseGenerator height(final int height) throws IllegalArgumentException {
 		if (height < 1) {
 			throw new IllegalArgumentException("A voronoi noise map height must be a positive, non-zero value. " + height + " is too small.");
 		}
@@ -44,7 +44,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		return this;
 	}
 
-	public VoronoiNoiseGenerator width(int width) throws IllegalArgumentException {
+	public VoronoiNoiseGenerator width(final int width) throws IllegalArgumentException {
 		if (width < 1) {
 			throw new IllegalArgumentException("A voronoi noise map width must be a positive, non-zero value. " + width + " is too small.");
 		}
@@ -53,13 +53,13 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		return this;
 	}
 
-	public VoronoiNoiseGenerator seed(long seed) {
+	public VoronoiNoiseGenerator seed(final long seed) {
 		this.seed = seed;
 		this.random.setSeed(seed);
 		return this;
 	}
 
-	public VoronoiNoiseGenerator noiseMask(double noiseMaskIntensity) throws IllegalArgumentException {
+	public VoronoiNoiseGenerator noiseMask(final double noiseMaskIntensity) throws IllegalArgumentException {
 		if (noiseMaskIntensity < 0 || noiseMaskIntensity > 1) {
 			throw new IllegalArgumentException("A voronoi mask intensity must be a positive value between zero and one. " + noiseMaskIntensity + " is outside that interval.");
 		}
@@ -68,7 +68,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		return this;
 	}
 
-	public VoronoiNoiseGenerator distanceMode(VoronoiDistance distanceMode) throws IllegalArgumentException {
+	public VoronoiNoiseGenerator distanceMode(final VoronoiDistance distanceMode) throws IllegalArgumentException {
 		if (distanceMode == null) {
 			throw new IllegalArgumentException("A voronoi noise distance mode cannot be null.");
 		}
@@ -77,7 +77,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		return this;
 	}
 
-	public VoronoiNoiseGenerator frequency(int frequency) throws IllegalArgumentException {
+	public VoronoiNoiseGenerator frequency(final int frequency) throws IllegalArgumentException {
 		if (frequency < 1) {
 			throw new IllegalArgumentException("A voronoi noise map initial frequency must be a positive, non-zero value. " + frequency + " is too small.");
 		}
@@ -99,7 +99,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		return new VoronoiNoise(this.height, this.width, this.seed, this.noise, this.noiseMask, this.distanceMode, this.frequency);
 	}
 
-	public double generateNoiseValue(int x, int y) {
+	public double generateNoiseValue(final int x, final int y) {
 		double adjustedX = x * frequency / 100.0;
 		double adjustedY = y * frequency / 100.0;
 
@@ -144,25 +144,30 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		return noise;
 	}
 
-	private double calculateDistance(double x1, double y1, double x2, double y2, VoronoiDistance distance) {
+	private double calculateDistance(final double x1, final double y1, final double x2, final double y2, final VoronoiDistance distance) {
 		switch (distance) {
 			case Euclidean:
 				return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+
 			case Manhattan:
 				return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+
 			case Minkowski:
 				double p = 3.0;
 				return Math.pow(Math.pow(Math.abs(x1 - x2), p) + Math.pow(Math.abs(y1 - y2), p), (1 / p));
+
 			case Chebyshev:
 				return Math.max(Math.abs(x1 - x2),Math.abs(y1 - y2));
+
 			case Equidistant:
 				return (x1 + y1) - (x2 + y2);
+
 			default:
 				return 0;
 		}
 	}
 
-	private double calculateCellValue(int x, int y, long seed) {
+	private double calculateCellValue(final int x, final int y, final long seed) {
 		long hash = (0x653 * x + 0x1B3B * y + 0x3F5 * seed);
 		return (((hash * (hash * hash * 0xEC4D + 0x131071F) + 0x5208DD0D) & Integer.MAX_VALUE) / (0x40000000 / 1.0)) / 2;
 	} 

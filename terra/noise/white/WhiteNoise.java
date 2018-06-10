@@ -20,7 +20,7 @@ public class WhiteNoise extends Noise {
 	 * @param noise The 2D double array containing the individual mask values of this {@link WhiteNoise} object.
 	 * @param noiseMask The {@link NoiseMask} being applied to this {@link WhiteNoise} object.
 	 */
-	WhiteNoise(int height, int width, long seed, double[][] noise, NoiseMask noiseMask) {
+	WhiteNoise(final int height, final int width, final long seed, final double[][] noise, final NoiseMask noiseMask) {
 		super(height, width, seed, noise, noiseMask);
 	}
 
@@ -30,7 +30,7 @@ public class WhiteNoise extends Noise {
 	 * @param whiteNoise The {@link WhiteNoise} object being copied.
 	 * @since 1.0
 	 */
-	WhiteNoise(WhiteNoise whiteNoise) {
+	WhiteNoise(final WhiteNoise whiteNoise) {
 		super(whiteNoise);
 	}
 

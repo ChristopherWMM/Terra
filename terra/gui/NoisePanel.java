@@ -3,7 +3,7 @@ package terra.gui;
 import java.awt.image.BufferedImage;
 
 class NoisePanel extends ImagePanel {
-	public NoisePanel(BufferedImage image) {
+	public NoisePanel(final BufferedImage image) {
 		super(image);
 	}
 }

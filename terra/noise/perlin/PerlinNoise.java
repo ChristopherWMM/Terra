@@ -38,7 +38,7 @@ public class PerlinNoise extends Noise {
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	PerlinNoise(int height, int width, long seed, double[][] noise, NoiseMask noiseMask, int frequency, int octaves, double persistence, double lacunarity) {
+	PerlinNoise(final int height, final int width, final long seed, final double[][] noise, final NoiseMask noiseMask, final int frequency, final int octaves, final double persistence, final double lacunarity) {
 		super(height, width, seed, noise, noiseMask);
 
 		if (frequency < 1) {
@@ -63,7 +63,7 @@ public class PerlinNoise extends Noise {
 	 * @param perlinNoise The {@link PerlinNoise} object being copied.
 	 * @since 1.0
 	 */
-	PerlinNoise(PerlinNoise perlinNoise) {
+	PerlinNoise(final PerlinNoise perlinNoise) {
 		super(perlinNoise);
 
 		this.frequency = perlinNoise.getFrequency();
