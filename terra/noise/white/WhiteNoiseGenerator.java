@@ -1,6 +1,10 @@
-package terra.noise;
+package terra.noise.white;
 
 import java.util.Random;
+
+import terra.noise.Generator;
+import terra.noise.mask.NoiseMask;
+import terra.noise.mask.NoiseMaskGenerator;
 
 public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 	private int height;
@@ -73,7 +77,7 @@ public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 		return new WhiteNoise(this.height, this.width, this.seed, this.noise, this.noiseMask);
 	}
 
-	private double generateWhiteValue() {
+	private double generateNoiseValue() {
 		return this.random.nextDouble();
 	}
 
@@ -83,7 +87,7 @@ public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 
 		for (int y = 0; y < this.height; y++) {
 			for (int x = 0; x < this.width; x++) {
-				noise[y][x] = generateWhiteValue();
+				noise[y][x] = generateNoiseValue();
 				noise[y][x] = Math.max(0, noise[y][x] - maskNoise[y][x]);
 			}
 		}

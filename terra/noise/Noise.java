@@ -2,6 +2,8 @@ package terra.noise;
 
 import java.awt.image.BufferedImage;
 
+import terra.noise.mask.NoiseMask;
+
 /**
  * The abstract superclass for all immutable programmatic representations of noise.
  * Objects store the results output by a noise {@link Generator} with the specific corresponding parameters.
@@ -39,7 +41,7 @@ public abstract class Noise {
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	Noise(int height, int width, long seed, double[][] noiseArray, NoiseMask noiseMask) {
+	protected Noise(int height, int width, long seed, double[][] noiseArray, NoiseMask noiseMask) {
 		if (height < 1) {
 			throw new IllegalArgumentException("A noise map height must be a positive, non-zero value. " + height + " is too small.");
 		} else if (width < 1) {
@@ -68,7 +70,7 @@ public abstract class Noise {
 	 * @param noise The {@link Noise} object being copied.
 	 * @since 1.0
 	 */
-	Noise(Noise noise) {
+	protected Noise(Noise noise) {
 		this.height = noise.getHeight();
 		this.width = noise.getWidth();
 		this.seed = noise.getSeed();

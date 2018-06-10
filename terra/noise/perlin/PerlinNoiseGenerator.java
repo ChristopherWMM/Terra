@@ -1,4 +1,8 @@
-package terra.noise;
+package terra.noise.perlin;
+
+import terra.noise.Generator;
+import terra.noise.mask.NoiseMask;
+import terra.noise.mask.NoiseMaskGenerator;
 
 public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 	private int height;
@@ -156,7 +160,7 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return noise;
 	}
 
-	protected double generateOctaveNoiseValue(double x, double y) {
+	protected double generateOctaveNoiseValue(int x, int y) {
 		double value = 0;
 		double amplitude = 1;
 		double frequency = this.frequency;
@@ -172,11 +176,11 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return value;
 	}
 
-	private double generatePerlinValue(double x, double y) {
+	private double generatePerlinValue(int x, int y) {
 		return generatePerlinValue(x, y, 1);
 	}
 
-	private double generatePerlinValue(double x, double y, double frequency) {
+	private double generatePerlinValue(int x, int y, double frequency) {
 		double doubleX = (double) x / this.width;
 		double doubleY = (double) y / this.height;
 

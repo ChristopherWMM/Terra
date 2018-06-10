@@ -1,6 +1,8 @@
-package terra.noise;
+package terra.noise.mask;
 
 import java.util.Arrays;
+
+import terra.noise.Generator;
 
 public class NoiseMaskGenerator extends Generator<NoiseMask> {
 	private int height;

@@ -1,4 +1,7 @@
-package terra.noise;
+package terra.noise.perlin;
+
+import terra.noise.Noise;
+import terra.noise.mask.NoiseMask;
 
 /**
  * The immutable programmatic representation of perlin noise.

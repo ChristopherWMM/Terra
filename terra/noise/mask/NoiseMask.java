@@ -1,4 +1,4 @@
-package terra.noise;
+package terra.noise.mask;
 
 import java.awt.image.BufferedImage;
 
