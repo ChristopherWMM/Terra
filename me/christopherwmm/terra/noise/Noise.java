@@ -1,7 +1,7 @@
-package terra.noise;
+package me.christopherwmm.terra.noise;
 
-import terra.gui.TerraImage;
-import terra.noise.mask.NoiseMask;
+import me.christopherwmm.terra.gui.TerraImage;
+import me.christopherwmm.terra.noise.mask.NoiseMask;
 
 /**
  * The abstract superclass for all immutable programmatic representations of noise.

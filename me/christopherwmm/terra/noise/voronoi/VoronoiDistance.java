@@ -1,4 +1,4 @@
-package terra.noise.voronoi;
+package me.christopherwmm.terra.noise.voronoi;
 
 /**
  * The accepted methodologies for calculating distance within a {@link VoronoiNoiseGenerator}.

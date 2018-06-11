@@ -1,4 +1,4 @@
-package terra.gui;
+package me.christopherwmm.terra.gui;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -11,25 +11,39 @@ public class ImageFrame extends JFrame {
 	private final int HEIGHT;
 
 	public ImageFrame(final TerraImage image) {
-		this("", image, false);
+		this("", image, true);
+	}
+
+	public ImageFrame(final String title, final TerraImage image) {
+		this(title, image, true);
 	}
 
 	public ImageFrame(final String title, final TerraImage image, final boolean resizable) {
+		this(title, image.getWidth(), image.getHeight(), image, resizable);
+	}
+
+	public ImageFrame(final String title, int width, int height, final TerraImage image, final boolean resizable) {
 		this.TITLE = title;
 		this.ICON = image;
-		this.HEIGHT = image.getHeight();
-		this.WIDTH = image.getWidth();
+		this.WIDTH = width;
+		this.HEIGHT = height;
 
 		setTitle(this.TITLE);
 		setIconImage(this.ICON);
-		add(new ImagePanel(image));
-
 		setResizable(resizable);
 
+		if (this.WIDTH != image.getWidth() || this.HEIGHT != image.getHeight()) {
+			double scaleFactorX = this.WIDTH / (double) image.getWidth();
+			double scaleFactorY = this.HEIGHT / (double) image.getHeight();
+
+			add(new ImagePanel(image.scaleNearestNeighbor(scaleFactorX, scaleFactorY)));
+		} else {
+			add(new ImagePanel(image));
+		}
+
 		pack();
-		pack();
-		setSize(getWidth() + (WIDTH - getContentPane().getWidth()), getHeight() + (HEIGHT - getContentPane().getHeight()));
-		getContentPane().setSize(WIDTH, HEIGHT);
+		setSize(getWidth() + (this.WIDTH - getContentPane().getWidth()), getHeight() + (this.HEIGHT - getContentPane().getHeight()));
+		getContentPane().setSize(this.WIDTH, this.HEIGHT);
 
 		try {
 			setDefaultLookAndFeelDecorated(true);

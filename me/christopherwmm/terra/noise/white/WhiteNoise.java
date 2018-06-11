@@ -1,7 +1,7 @@
-package terra.noise.white;
+package me.christopherwmm.terra.noise.white;
 
-import terra.noise.Noise;
-import terra.noise.mask.NoiseMask;
+import me.christopherwmm.terra.noise.Noise;
+import me.christopherwmm.terra.noise.mask.NoiseMask;
 
 /**
  * The immutable programmatic representation of white noise.

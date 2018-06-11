@@ -1,10 +1,10 @@
-package terra.noise.white;
+package me.christopherwmm.terra.noise.white;
 
 import java.util.Random;
 
-import terra.noise.Generator;
-import terra.noise.mask.NoiseMask;
-import terra.noise.mask.NoiseMaskGenerator;
+import me.christopherwmm.terra.noise.Generator;
+import me.christopherwmm.terra.noise.mask.NoiseMask;
+import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
 
 public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 	private int height;

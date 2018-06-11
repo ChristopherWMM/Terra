@@ -1,10 +1,10 @@
-package terra.noise.voronoi;
+package me.christopherwmm.terra.noise.voronoi;
 
 import java.util.Random;
 
-import terra.noise.Generator;
-import terra.noise.mask.NoiseMask;
-import terra.noise.mask.NoiseMaskGenerator;
+import me.christopherwmm.terra.noise.Generator;
+import me.christopherwmm.terra.noise.mask.NoiseMask;
+import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
 
 public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 	private int height;
@@ -147,7 +147,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 	private double calculateDistance(final double x1, final double y1, final double x2, final double y2, final VoronoiDistance distance) {
 		switch (distance) {
 			case Euclidean:
-				return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+				return Math.sqrt(Math.pow((x1 - x2), 2.0) + Math.pow((y1 - y2) , 2.0));
 
 			case Manhattan:
 				return Math.abs(x1 - x2) + Math.abs(y1 - y2);
@@ -157,7 +157,7 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 				return Math.pow(Math.pow(Math.abs(x1 - x2), p) + Math.pow(Math.abs(y1 - y2), p), (1 / p));
 
 			case Chebyshev:
-				return Math.max(Math.abs(x1 - x2),Math.abs(y1 - y2));
+				return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 
 			case Equidistant:
 				return (x1 + y1) - (x2 + y2);
@@ -170,5 +170,5 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 	private double calculateCellValue(final int x, final int y, final long seed) {
 		long hash = (0x653 * x + 0x1B3B * y + 0x3F5 * seed);
 		return (((hash * (hash * hash * 0xEC4D + 0x131071F) + 0x5208DD0D) & Integer.MAX_VALUE) / (0x40000000 / 1.0)) / 2;
-	} 
+	}
 }

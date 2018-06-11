@@ -1,14 +1,14 @@
-package terra;
+package me.christopherwmm.terra;
 
-import terra.gui.ImageFrame;
-import terra.gui.NoiseFrame;
-import terra.noise.Noise;
-import terra.noise.mask.NoiseMask;
-import terra.noise.mask.NoiseMaskGenerator;
-import terra.noise.perlin.PerlinNoiseGenerator;
-import terra.noise.voronoi.VoronoiDistance;
-import terra.noise.voronoi.VoronoiNoiseGenerator;
-import terra.noise.white.WhiteNoiseGenerator;
+import me.christopherwmm.terra.gui.ImageFrame;
+import me.christopherwmm.terra.gui.NoiseFrame;
+import me.christopherwmm.terra.noise.Noise;
+import me.christopherwmm.terra.noise.mask.NoiseMask;
+import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
+import me.christopherwmm.terra.noise.perlin.PerlinNoiseGenerator;
+import me.christopherwmm.terra.noise.voronoi.VoronoiDistance;
+import me.christopherwmm.terra.noise.voronoi.VoronoiNoiseGenerator;
+import me.christopherwmm.terra.noise.white.WhiteNoiseGenerator;
 
 public class Terra {
 	public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class Terra {
 							.intensity(0.5)
 							.generate();
 
-		new ImageFrame(mask.getMaskImage());
+		new ImageFrame("Noise Mask", mask.getMaskImage());
 
 		Noise white = new WhiteNoiseGenerator()
 							.height(256)

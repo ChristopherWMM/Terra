@@ -1,4 +1,4 @@
-package terra.noise;
+package me.christopherwmm.terra.noise;
 
 /**
  * The abstract superclass for all generators.

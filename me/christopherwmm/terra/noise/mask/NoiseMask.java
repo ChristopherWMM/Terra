@@ -1,5 +1,5 @@
-package terra.noise.mask;
-import terra.gui.TerraImage;
+package me.christopherwmm.terra.noise.mask;
+import me.christopherwmm.terra.gui.TerraImage;
 
 /**
  * The immutable programmatic representation of a noise mask.
