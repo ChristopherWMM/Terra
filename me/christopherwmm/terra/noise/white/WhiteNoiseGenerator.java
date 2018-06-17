@@ -2,11 +2,11 @@ package me.christopherwmm.terra.noise.white;
 
 import java.util.Random;
 
-import me.christopherwmm.terra.noise.Generator;
+import me.christopherwmm.terra.noise.NoiseGenerator;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
 
-public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
+public class WhiteNoiseGenerator extends NoiseGenerator<WhiteNoise> {
 	private int height;
 	private int width;
 	private long seed;
@@ -77,17 +77,19 @@ public class WhiteNoiseGenerator extends Generator<WhiteNoise> {
 		return new WhiteNoise(this.height, this.width, this.seed, this.noise, this.noiseMask);
 	}
 
-	private double generateNoiseValue() {
+	@Override
+	protected double generateNoiseValue(final int x, final int y) {
 		return this.random.nextDouble();
 	}
 
-	private double[][] generateNoiseArray() {
+	@Override
+	protected double[][] generateNoiseArray() {
 		double[][] noise = new double[this.height][this.width];
 		double[][] maskNoise = this.noiseMask.getMask();
 
 		for (int y = 0; y < this.height; y++) {
 			for (int x = 0; x < this.width; x++) {
-				noise[y][x] = generateNoiseValue();
+				noise[y][x] = generateNoiseValue(x, y);
 				noise[y][x] = Math.max(0, noise[y][x] - maskNoise[y][x]);
 			}
 		}

@@ -1,5 +1,6 @@
 package me.christopherwmm.terra.noise;
 
+import me.christopherwmm.terra.Generator;
 import me.christopherwmm.terra.gui.TerraImage;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 

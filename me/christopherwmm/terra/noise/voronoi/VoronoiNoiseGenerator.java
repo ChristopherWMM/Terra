@@ -2,11 +2,11 @@ package me.christopherwmm.terra.noise.voronoi;
 
 import java.util.Random;
 
-import me.christopherwmm.terra.noise.Generator;
+import me.christopherwmm.terra.noise.NoiseGenerator;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
 
-public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
+public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 	private int height;
 	private int width;
 	private long seed;
@@ -99,7 +99,8 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 		return new VoronoiNoise(this.height, this.width, this.seed, this.noise, this.noiseMask, this.distanceMode, this.frequency);
 	}
 
-	public double generateNoiseValue(final int x, final int y) {
+	@Override
+	protected double generateNoiseValue(final int x, final int y) {
 		double adjustedX = x * frequency / 100.0;
 		double adjustedY = y * frequency / 100.0;
 
@@ -129,8 +130,9 @@ public class VoronoiNoiseGenerator extends Generator<VoronoiNoise> {
 
 		return calculateCellValue(xNoiseValue, yNoiseValue, this.seed);
 	}
-	
-	public double[][] generateNoiseArray() {
+
+	@Override
+	protected double[][] generateNoiseArray() {
 		double[][] noise = new double[this.height][this.width];
 		double[][] maskNoise = this.noiseMask.getMask();
 

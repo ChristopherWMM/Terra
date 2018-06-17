@@ -1,10 +1,10 @@
 package me.christopherwmm.terra.noise.perlin;
 
-import me.christopherwmm.terra.noise.Generator;
+import me.christopherwmm.terra.noise.NoiseGenerator;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
 
-public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
+public class PerlinNoiseGenerator extends NoiseGenerator<PerlinNoise> {
 	private int height;
 	private int width;
 	private long seed;
@@ -140,43 +140,12 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		return new PerlinNoise(this.height, this.width, this.seed, this.noise, this.noiseMask, this.frequency, this.octaves, this.persistence, this.lacunarity);
 	}
 
-	private double[][] generateNoiseArray() {
-		double[][] noise = new double[this.height][this.width];
-
-		for (int y = 0; y < this.height; y++) {
-			for (int x = 0; x < this.width; x++) {
-				noise[y][x] = generateOctaveNoiseValue(x, y);
-
-				if (noise[y][x] > this.maxNoiseValue)  {
-					this.maxNoiseValue = noise[y][x];
-				} else if (noise[y][x] < this.minNoiseValue) {
-					this.minNoiseValue = noise[y][x];
-				}
-			}
-		}
-
-		noise = smoothNoiseArray(noise);
-
-		return noise;
+	@Override
+	protected double generateNoiseValue(final int x, final int y) {
+		return generateNoiseValue(x, y, this.frequency);
 	}
 
-	protected double generateOctaveNoiseValue(final int x, final int y) {
-		double value = 0;
-		double amplitude = 1;
-		double frequency = this.frequency;
-
-		for(int i = 0; i < this.octaves; i++) {
-			double perlinValue = generatePerlinValue(x, y, frequency);
-			value += perlinValue * amplitude;
-
-			amplitude *= this.persistence;
-			frequency *= this.lacunarity;
-		}
-
-		return value;
-	}
-
-	private double generatePerlinValue(final int x, final int y, final double frequency) {
+	private double generateNoiseValue(final int x, final int y, final double frequency) {
 		double doubleX = (double) x / this.width;
 		double doubleY = (double) y / this.height;
 
@@ -207,6 +176,43 @@ public class PerlinNoiseGenerator extends Generator<PerlinNoise> {
 		double lerpedY = lerp(interpolatedY, lerpedX1, lerpedX2);
 
 		return (lerpedY + 1) / 2;
+	}
+
+	protected double generateOctaveNoiseValue(final int x, final int y) {
+		double value = 0;
+		double amplitude = 1;
+		double frequency = this.frequency;
+
+		for(int i = 0; i < this.octaves; i++) {
+			double perlinValue = generateNoiseValue(x, y, frequency);
+			value += perlinValue * amplitude;
+
+			amplitude *= this.persistence;
+			frequency *= this.lacunarity;
+		}
+
+		return value;
+	}
+
+	@Override
+	protected double[][] generateNoiseArray() {
+		double[][] noise = new double[this.height][this.width];
+
+		for (int y = 0; y < this.height; y++) {
+			for (int x = 0; x < this.width; x++) {
+				noise[y][x] = generateOctaveNoiseValue(x, y);
+
+				if (noise[y][x] > this.maxNoiseValue)  {
+					this.maxNoiseValue = noise[y][x];
+				} else if (noise[y][x] < this.minNoiseValue) {
+					this.minNoiseValue = noise[y][x];
+				}
+			}
+		}
+
+		noise = smoothNoiseArray(noise);
+
+		return noise;
 	}
 
 	private double[][] smoothNoiseArray(final double[][] noise) {
