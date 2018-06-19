@@ -44,6 +44,7 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 + Octave:
   + **Definition**: A single noise map which can be used independently or in compounding layers.
   + **Use**: Allows for the compounding of noise layers such that subsequent layers add detail and roughness to the previous noise layers without changing their overall structure.
+
     | *Original Noise Layer*      | *Noise Layer 1*       | *Noise Layer 2* | *Resultant Noise Map* |
     | :-----------------------: | :-----------------------: | :-----------------------: | :-----------------------: |
     | ![Original Octave][octave-original] | ![Layer 1][octave-1] | ![Layer 2][octave-2] |  ![Octave Result][octave-result]|
