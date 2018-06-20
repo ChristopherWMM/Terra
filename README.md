@@ -51,16 +51,16 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 + Persistence:
   + **Definition**: The amplitude multiplier between subsequently noise map octaves.
   + **Amplitude function used:** ![Amplitude Function][amplitude-function]
-  + **Use**: 
+  + **Use**: Controls the intensity of the small features present on the noise map after all octaves have been compounded.
     ​
 + Lacunarity:
   + **Definition**: The frequency multiplier between subsequently noise map octaves.
   + **Frequency function used:** ![Frequency Function][frequency-function]
-  + **Use**: 
+  + **Use**: Controls the number of small features visible on the noise map after all octaves have been compounded.
     ​
 + Noise Mask:
   + **Definition**: A topmost layer added to a noise map meant to conceal its noise values by a variable factor.
-  + **Use**: 
+  + **Use**: Allows for specific areas of a noise map to be obscured or completely hidden.
 
 |          *Noise Mask*       |          *Raw Noise*       | *Masked Noise* |
 | :-----------------------: | :-----------------------: | :-----------------------: |
@@ -93,7 +93,7 @@ Noise perlin = new PerlinNoiseGenerator()
 [white-noise-example]: https://i.imgur.com/kdvoLXs.gif "White Noise"
 [perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif "Perlin Noise"
 
-[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
+[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
 
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."
