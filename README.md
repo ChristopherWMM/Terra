@@ -27,17 +27,17 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
   + **Definition**: The single number utilized to initiate the pseudorandom generation of a noise map.
   + **Use**: Each pseudorandom noise map can be recreated from scratch through the reuse of its unique seed.
 
-|          *Seed X*           |          *Seed Y*           |
-| :-----------------------: | :-----------------------: |
-| ![Seed: x][perlin-seed-x] | ![Seed: y][perlin-seed-y] |
+    |          *Seed X*           |          *Seed Y*           |
+    | :-----------------------: | :-----------------------: |
+    | ![Seed: x][perlin-seed-x] | ![Seed: y][perlin-seed-y] |
 
 + Frequency: 
   + **Definition**: The scale number of individual peaks and troughs found in each dimension of a single noise map octave.
   + **Use**: Controls the initial scale along the x and y axes of the Perlin noise map. As seen below, increasing the initial frequency by a factor of two causes the previous noise map to be present, but only represent a quarter of the subsequent grid.
 
-|          *Frequency: 1*           |          *Frequency: 2*           | *Frequency: 4* |
-| :-----------------------: | :-----------------------: | :-----------------------: |
-| ![Frequency: 1][perlin-frequency-1] | ![Frequency: 2][perlin-frequency-2] | ![Frequency: 4][perlin-frequency-4] |
+    |          *Frequency: 1*           |          *Frequency: 2*           | *Frequency: 4* |
+    | :-----------------------: | :-----------------------: | :-----------------------: |
+    | ![Frequency: 1][perlin-frequency-1] | ![Frequency: 2][perlin-frequency-2] | ![Frequency: 4][perlin-frequency-4] |
 
 ###### \* Note: The sigmoid fade function has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between Perlin grid quadrants.
 
@@ -73,9 +73,9 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
   + **Definition**: A topmost layer added to a noise map meant to conceal its noise values by a variable factor.
   + **Use**: Allows for specific areas of a noise map to be obscured or completely hidden.
 
-|          *Noise Mask*       |          *Raw Noise*       | *Masked Noise* |
-| :-----------------------: | :-----------------------: | :-----------------------: |
-| ![Noise Mask][noise-mask] | ![Raw Perlin][raw-perlin] | ![Masked Perlin][masked-perlin] |
+    |          *Noise Mask*       |          *Raw Noise*       | *Masked Noise* |
+    | :-----------------------: | :-----------------------: | :-----------------------: |
+    | ![Noise Mask][noise-mask] | ![Raw Perlin][raw-perlin] | ![Masked Perlin][masked-perlin] |
 
 -----
 #### Generating Perlin Noise
