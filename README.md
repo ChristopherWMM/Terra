@@ -48,16 +48,27 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
     | *Original Noise Layer*      | *Noise Layer 1*       | *Noise Layer 2* | *Resultant Noise Map* |
     | :-----------------------: | :-----------------------: | :-----------------------: | :-----------------------: |
     | ![Original Octave][octave-original] | ![Layer 1][octave-1] | ![Layer 2][octave-2] |  ![Octave Result][octave-result]|
+
 + Persistence:
   + **Definition**: The amplitude multiplier between subsequently noise map octaves.
+
   + **Amplitude function used:** ![Amplitude Function][amplitude-function]
-  + **Use**: Controls the intensity of the small features present on the noise map after all octaves have been compounded.
-    ​
+
+  + **Use**: Controls the intensity and detail of the small features present on the noise map after all octaves have been compounded.
+
+    | *Low Persistence*      | *Moderate Persistence*       | *High Persistence* |
+    | :-----------------------: | :-----------------------: | :-----------------------: |
+    | ![Low Persistence][persistence-low] | ![Moderate Persistence][persistence-moderate] | ![High Persistence][persistence-high] |
+
 + Lacunarity:
   + **Definition**: The frequency multiplier between subsequently noise map octaves.
   + **Frequency function used:** ![Frequency Function][frequency-function]
   + **Use**: Controls the number of small features visible on the noise map after all octaves have been compounded.
-    ​
+
+    | *Low Lacunarity* | *Moderate Lacunarity* | *High Lacunarity* |
+    | :-----------------------: | :-----------------------: | :-----------------------: |
+    | ![Low Lacunarity][lacunarity-low] | ![Moderate Lacunarity][lacunarity-moderate] | ![High Lacunarity][lacunarity-high] |
+
 + Noise Mask:
   + **Definition**: A topmost layer added to a noise map meant to conceal its noise values by a variable factor.
   + **Use**: Allows for specific areas of a noise map to be obscured or completely hidden.
@@ -93,7 +104,7 @@ Noise perlin = new PerlinNoiseGenerator()
 [white-noise-example]: https://i.imgur.com/kdvoLXs.gif "White Noise"
 [perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif "Perlin Noise"
 
-[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
+[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
 
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."
@@ -106,6 +117,14 @@ Noise perlin = new PerlinNoiseGenerator()
 [octave-1]: https://i.imgur.com/2UpSDMy.png "Perlin Noise Layer 1."
 [octave-2]: https://i.imgur.com/OaMuuOo.png "Perlin Noise Layer 2."
 [octave-result]: https://i.imgur.com/O4MkDFe.png "Resultant Perlin Noise after Octave compounding."
+
+[persistence-low]: https://i.imgur.com/M6HKvDd.png "Low Persistence Perlin Noise."
+[persistence-moderate]: https://i.imgur.com/kbPvufi.png "Moderate Persistence Perlin Noise."
+[persistence-high]: https://i.imgur.com/n5LvPEV.png "High Persistence Perlin Noise."
+
+[lacunarity-low]: https://i.imgur.com/94DskyS.png "Low Lacunarity Perlin Noise."
+[lacunarity-moderate]: https://i.imgur.com/WnQSBM2.png "Moderate Lacunarity Perlin Noise."
+[lacunarity-high]: https://i.imgur.com/94jQRU6.png "High Lacunarity Perlin Noise."
 
 [amplitude-function]: http://latex.codecogs.com/gif.latex?amplitude%20%3D%20persistence%7B%5E%7B%28octaves%20-%201%29%7D%7D "Perlin Noise persistence function LaTeX."
 
