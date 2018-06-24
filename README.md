@@ -12,7 +12,8 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 
 1. **Definition:**
    1. Perlin grid generation.
-   2. Pseudorandom vector generation at each Perlin grid vertex.
+   		![pixel-grid][pixel-grid]
+   2. Pseudorandom vector generation at each Perlin grid vertex
 2. **Calculation:** 
    1. Calculate the Dot Product between each pixel position and its four respective Perlin grid vertex vectors. This ensures that each point in adjacent Perlin grid quadrants shares two pseudorandom vectors.
 3. **Interpolation:**
@@ -104,7 +105,9 @@ Noise perlin = new PerlinNoiseGenerator()
 [white-noise-example]: https://i.imgur.com/kdvoLXs.gif "White Noise"
 [perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif "Perlin Noise"
 
-[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
+[pixel-grid]: https://i.imgur.com/MzycPn3.png "Pixel Grid"
+
+[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
 
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."
