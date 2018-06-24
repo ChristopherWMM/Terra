@@ -12,15 +12,31 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
 
 1. **Definition:**
    1. Perlin grid generation.
-   		![pixel-grid][pixel-grid]
-   2. Pseudorandom vector generation at each Perlin grid vertex
+
+      ![pixel-grid][pixel-grid]
+
+   2. Pseudorandom vector generation at each Perlin grid vertex.
+
+      ![perlin-grid-vectors][perlin-grid-vectors]
+
 2. **Calculation:** 
    1. Calculate the Dot Product between each pixel position and its four respective Perlin grid vertex vectors. This ensures that each point in adjacent Perlin grid quadrants shares two pseudorandom vectors.
+
+      ![perlin-grid-dot-product][perlin-grid-dot-product]
+
 3. **Interpolation:**
-   1. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between Perlin grid quadrants.
+   1. Utilize bilinear interpolation to combine the four dot products.
+
+      ![perlin-grid-interpolation][perlin-grid-interpolation]
+      
+   2. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between Perlin grid quadrants.
+
       + **Fade function used:** ![Fade Function][fade-function]
+
+        ![fade-function-graph][fade-function-graph]
+
    2. Calculate the local minimum and maximum of the given noise map, then rescale the individual noise values back onto the interval of [0-1] through inverse linear interpolation.
-      ​
+
 
 ##### Terminology
 
@@ -106,8 +122,12 @@ Noise perlin = new PerlinNoiseGenerator()
 [perlin-noise-example]: https://i.imgur.com/ZIbyS0g.gif "Perlin Noise"
 
 [pixel-grid]: https://i.imgur.com/MzycPn3.png "Pixel Grid"
+[perlin-grid-vectors]: https://i.imgur.com/AtokBzZ.png "Perlin Grid Vectors"
+[perlin-grid-dot-product]: https://i.imgur.com/vLaYSQm.png "Perlin Grid Dot Product"
+[perlin-grid-interpolation]: https://i.imgur.com/Aaclvcq.png "Perlin Grid Value Interpolation"
 
-[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
+[fade-function-graph]: https://i.imgur.com/jhFxziQ.png
+[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
 
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."
