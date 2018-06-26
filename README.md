@@ -31,6 +31,10 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
       
    2. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between Perlin grid quadrants.
 
+   |          *No fading*           |          *Fading*           |
+   | :-----------------------: | :-----------------------: |
+   | ![fade-function-on][fade-function-off] | ![fade-function-on][fade-function-on] |
+
       + **Fade function used:** ![Fade Function][fade-function]
 
         ![fade-function-graph][fade-function-graph]
@@ -126,8 +130,10 @@ Noise perlin = new PerlinNoiseGenerator()
 [perlin-grid-dot-product]: https://i.imgur.com/vLaYSQm.png "Perlin Grid Dot Product"
 [perlin-grid-interpolation]: https://i.imgur.com/Aaclvcq.png "Perlin Grid Value Interpolation"
 
-[fade-function-graph]: https://i.imgur.com/jhFxziQ.png
-[fade-function]: http://latex.codecogs.com/gif.latex?f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
+[fade-function-on]: https://i.imgur.com/G4yoUpG.png "Faded Perlin Noise"
+[fade-function-off]: https://i.imgur.com/77pfRxu.png "Non-faded Perlin Noise"
+[fade-function-graph]: https://i.imgur.com/jhFxziQ.png "The graph of the fade function utilized."
+[fade-function]: http://latex.codecogs.com/gif.latex? f%28x%29%20%3D%206x%5E%7B5%7D%20-%2015x%5E%7B4%7D&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;plus;10x%5E%7B3%7D "Perlin Noise fade function LaTeX."
 
 [perlin-seed-x]: https://i.imgur.com/B7FhPhV.png "Perlin Noise with seed X."
 [perlin-seed-y]: https://i.imgur.com/oJhRLLx.png "Perlin Noise with seed Y."
