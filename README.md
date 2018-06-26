@@ -31,9 +31,9 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
       
    2. Utilize a sigmoid fade function, otherwise known as an ease curve to remove any seams found between Perlin grid quadrants.
 
-   |          *No fading*           |          *Fading*           |
-   | :-----------------------: | :-----------------------: |
-   | ![fade-function-on][fade-function-off] | ![fade-function-on][fade-function-on] |
+   		|          *No fading*           |          *Fading*           |
+   		| :-----------------------: | :-----------------------: |
+   		| ![fade-function-on][fade-function-off] | ![fade-function-on][fade-function-on] |
 
       + **Fade function used:** ![Fade Function][fade-function]
 
