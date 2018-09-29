@@ -21,7 +21,7 @@ public abstract class Noise {
 	/** The long seed used to generate this {@link Noise} object. */
 	private final long seed;
 
-	/** The 2D double array containing the individual mask values of this {@link Noise} object. */
+	/** The 2D double array containing the individual values of this {@link Noise} object. */
 	private final double noiseArray[][];
 
 	/** The {@link NoiseMask} being applied to this {@link Noise} object. */
@@ -36,7 +36,7 @@ public abstract class Noise {
 	 * @param height The non-zero integer height of this {@link Noise} object.
 	 * @param width The non-zero integer width of this {@link Noise} object.
 	 * @param seed The long seed used to generate this {@link Noise} object.
-	 * @param noiseArray The 2D double array containing the individual mask values of this {@link Noise} object.
+	 * @param noiseArray The 2D double array containing the individual values of this {@link Noise} object.
 	 * @param noiseMask The {@link NoiseMask} being applied to this {@link Noise} object.
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
