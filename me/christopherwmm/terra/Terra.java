@@ -43,13 +43,13 @@ public class Terra {
 		new NoiseFrame(white);
 
 		Noise voronoi = new VoronoiNoiseGenerator()
-									.height(256)
-									.width(256)
-									.seed(0)
-									.distanceMode(VoronoiDistance.Euclidean)
-									.frequency(1)
-									.noiseMask(0.0)
-									.generate();
+								.height(256)
+								.width(256)
+								.seed(0)
+								.distanceMode(VoronoiDistance.Euclidean)
+								.frequency(1)
+								.noiseMask(0.0)
+								.generate();
 
 		new NoiseFrame(voronoi);
 	}

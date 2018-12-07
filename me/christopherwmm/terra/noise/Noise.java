@@ -27,9 +27,6 @@ public abstract class Noise {
 	/** The {@link NoiseMask} being applied to this {@link Noise} object. */
 	private final NoiseMask noiseMask;
 
-	/** The {@link TerraImage} visual representation of this {@link Noise} object. */
-	private final TerraImage noiseImage;
-
 	/**
 	 * Constructs a new {@link Noise} object with the given values.
 	 * 
@@ -57,11 +54,8 @@ public abstract class Noise {
 		this.height = height;
 		this.width = width;
 		this.seed = seed;
-		this.noiseArray = new double[this.height][this.width];
+		this.noiseArray = noiseArray;
 		this.noiseMask = noiseMask.clone();
-		this.noiseImage = generateNoiseImage(noiseArray);
-
-		copy2DArray(this.noiseArray, noiseArray);
 	}
 
 	/**
@@ -74,9 +68,10 @@ public abstract class Noise {
 		this.height = noise.getHeight();
 		this.width = noise.getWidth();
 		this.seed = noise.getSeed();
-		this.noiseArray = noise.getNoise();
+		this.noiseArray = new double[this.height][this.width];
 		this.noiseMask = noise.getNoiseMask().clone();
-		this.noiseImage = generateNoiseImage(this.noiseArray);
+
+		this.copy2DArray(this.noiseArray, noiseArray);
 	}
 
 	/**
@@ -165,10 +160,7 @@ public abstract class Noise {
 	 * @since 1.0
 	 */
 	public double[][] getNoise() {
-		double[][] noiseArrayCopy = new double[this.height][this.width];
-		copy2DArray(noiseArrayCopy, this.noiseArray);
-
-		return noiseArrayCopy;
+		return this.noiseArray;
 	}
 
 	/**
@@ -188,6 +180,6 @@ public abstract class Noise {
 	 * @since 1.0
 	 */
 	public TerraImage getNoiseImage() {
-		return noiseImage.clone();
+		return this.generateNoiseImage(this.noiseArray);
 	}
 }

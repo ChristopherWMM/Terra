@@ -1,7 +1,5 @@
 package me.christopherwmm.terra.noise.voronoi;
 
-import java.util.Random;
-
 import me.christopherwmm.terra.noise.NoiseGenerator;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
@@ -16,8 +14,6 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 	private double noiseMaskIntensity;
 	private NoiseMask noiseMask;
 
-	private final Random random;
-
 	public VoronoiNoiseGenerator() {
 		this.height = 512;
 		this.width = 512;
@@ -31,8 +27,6 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 							.width(this.width)
 							.intensity(this.noiseMaskIntensity)
 							.generate();
-
-		this.random = new Random();
 	}
 
 	public VoronoiNoiseGenerator height(final int height) throws IllegalArgumentException {
@@ -55,7 +49,6 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 
 	public VoronoiNoiseGenerator seed(final long seed) {
 		this.seed = seed;
-		this.random.setSeed(seed);
 		return this;
 	}
 
