@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class TerraImage extends BufferedImage implements Cloneable {
 	/**
-	 * Constructs a new {@link NoiseMask} object with the given values.
+	 * Constructs a new {@link TerraImage} object with the given values.
 	 * 
 	 * @param width The non-zero integer width of this {@link TerraImage} object.
 	 * @param height The non-zero integer height of this {@link TerraImage} object.
