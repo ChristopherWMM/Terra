@@ -5,15 +5,15 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 class ImagePanel extends JPanel {
-	private TerraImage image;
+	private Image image;
 
-	public ImagePanel(final TerraImage image) {
+	public ImagePanel(final Image image) {
 		setSize(image.getWidth(), image.getHeight());
 		this.image = image;
 	}
 
 	public void paintComponent(final Graphics graphics) {
-		TerraImage image = getImage();
+		Image image = getImage();
 
 		if (getWidth() != image.getWidth() || getHeight() != image.getHeight()) {
 			double scaleFactorX = getWidth() / (double) image.getWidth();
@@ -26,7 +26,7 @@ class ImagePanel extends JPanel {
 		graphics.drawImage(image, 0, 0, null);
 	}
 
-	public TerraImage getImage() {
+	public Image getImage() {
 		return this.image;
 	}
 }

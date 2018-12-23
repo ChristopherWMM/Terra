@@ -10,50 +10,50 @@ import java.awt.image.BufferedImage;
  * @since 1.0
  * @author ChristopherWMM
  */
-public class TerraImage extends BufferedImage implements Cloneable {
+public class Image extends BufferedImage implements Cloneable {
 	/**
-	 * Constructs a new {@link TerraImage} object with the given values.
+	 * Constructs a new {@link Image} object with the given values.
 	 * 
-	 * @param width The non-zero integer width of this {@link TerraImage} object.
-	 * @param height The non-zero integer height of this {@link TerraImage} object.
-	 * @param imageType The integer colorspace used by this {@link TerraImage} object.
+	 * @param width The non-zero integer width of this {@link Image} object.
+	 * @param height The non-zero integer height of this {@link Image} object.
+	 * @param imageType The integer color space used by this {@link Image} object.
 	 * @since 1.0
 	 */
-	public TerraImage(int width, int height, int imageType) {
+	public Image(int width, int height, int imageType) {
 		super(width, height, imageType);
 	}
 
 	/**
-	 * Constructs a new {@link TerraImage} object that is a deep copy based on the given {@link terraImage} object.
+	 * Constructs a new {@link Image} object that is a deep copy based on the given {@link BufferedImage} object.
 	 * 
-	 * @param terraImage The {@link TerraImage} object being copied.
+	 * @param image The {@link BufferedImage} object being copied.
 	 * @since 1.0
 	 */
-	public TerraImage(TerraImage terraImage) {
-		super(terraImage.getWidth(), terraImage.getHeight(), terraImage.getType());
-		setData(terraImage.getData());
+	public Image(BufferedImage image) {
+		super(image.getWidth(), image.getHeight(), image.getType());
+		setData(image.getData());
 	}
 
 	/**
-	 * Returns a new {@link TerraImage} object that is a deep copy of this {@link TerraImage} object.
+	 * Returns a new {@link Image} object that is a deep copy of this {@link Image} object.
 	 * 
-	 * @return A new {@link TerraImage} object that is a deep copy of this {@link TerraImage} object.
+	 * @return A new {@link Image} object that is a deep copy of this {@link Image} object.
 	 * @since 1.0
 	 */
-	public TerraImage clone() {
-		return new TerraImage(this);
+	public Image clone() {
+		return new Image(this);
 	}
 
 	/**
-	 * Returns a new {@link TerraImage} object that is scaled up or down using Bilinear interpolation.
+	 * Returns a new {@link Image} object that is scaled up or down using Bilinear interpolation.
 	 * 
-	 * @param scaleFactorX The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the x direction.
-	 * @param scaleFactorY The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the y direction.
-	 * @return A new {@link TerraImage} object that is a is scaled up or down version of this {@link TerraImage} object.
+	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled in the x direction.
+	 * @param scaleFactorY The positive, non-zero double percentage the new {@link Image} will be scaled in the y direction.
+	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	public TerraImage scaleBilinear(final double scaleFactorX, final double scaleFactorY) {
+	public Image scaleBilinear(final double scaleFactorX, final double scaleFactorY) {
 		if (scaleFactorX < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("An image's x scale factor must be a positive, non-zero value. " + scaleFactorX + " is too small.");
 		} else if (scaleFactorY < Double.MIN_VALUE) {
@@ -65,15 +65,15 @@ public class TerraImage extends BufferedImage implements Cloneable {
 	}
 
 	/**
-	 * Returns a new {@link TerraImage} object that is scaled up or down using Bicubic interpolation.
+	 * Returns a new {@link Image} object that is scaled up or down using Bicubic interpolation.
 	 * 
-	 * @param scaleFactorX The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the x direction.
-	 * @param scaleFactorY The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the y direction.
-	 * @return A new {@link TerraImage} object that is a is scaled up or down version of this {@link TerraImage} object.
+	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled in the x direction.
+	 * @param scaleFactorY The positive, non-zero double percentage the new {@link Image} will be scaled in the y direction.
+	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	public TerraImage scaleBicubic(final double scaleFactorX, final double scaleFactorY) {
+	public Image scaleBicubic(final double scaleFactorX, final double scaleFactorY) {
 		if (scaleFactorX < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("An image's x scale factor must be a positive, non-zero value. " + scaleFactorX + " is too small.");
 		} else if (scaleFactorY < Double.MIN_VALUE) {
@@ -85,15 +85,15 @@ public class TerraImage extends BufferedImage implements Cloneable {
 	}
 
 	/**
-	 * Returns a new {@link TerraImage} object that is scaled up or down using Nearest Neighbor interpolation.
+	 * Returns a new {@link Image} object that is scaled up or down using Nearest Neighbor interpolation.
 	 * 
-	 * @param scaleFactorX The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the x direction.
-	 * @param scaleFactorY The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the y direction.
-	 * @return A new {@link TerraImage} object that is a is scaled up or down version of this {@link TerraImage} object.
+	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled in the x direction.
+	 * @param scaleFactorY The positive, non-zero double percentage the new {@link Image} will be scaled in the y direction.
+	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	public TerraImage scaleNearestNeighbor(final double scaleFactorX, final double scaleFactorY) {
+	public Image scaleNearestNeighbor(final double scaleFactorX, final double scaleFactorY) {
 		if (scaleFactorX < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("An image's x scale factor must be a positive, non-zero value. " + scaleFactorX + " is too small.");
 		} else if (scaleFactorY < Double.MIN_VALUE) {
@@ -105,16 +105,16 @@ public class TerraImage extends BufferedImage implements Cloneable {
 	}
 
 	/**
-	 * Returns a new {@link TerraImage} object that is scaled up or down using the given form of interpolation.
+	 * Returns a new {@link Image} object that is scaled up or down using the given form of interpolation.
 	 * 
-	 * @param scaleFactorX The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the x direction.
-	 * @param scaleFactorY The positive, non-zero double percentage the new {@link TerraImage} will be scaled in the y direction.
+	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled in the x direction.
+	 * @param scaleFactorY The positive, non-zero double percentage the new {@link Image} will be scaled in the y direction.
 	 * @param type The positive, non-zero integer corresponding to the {@link AffineTransformOp} interpolation mode that will be used to scale.
-	 * @return A new {@link TerraImage} object that is a is scaled up or down version of this {@link TerraImage} object.
+	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	private TerraImage scale(final double scaleFactorX, final double scaleFactorY, final int type) {
+	private Image scale(final double scaleFactorX, final double scaleFactorY, final int type) {
 		if (scaleFactorX < Double.MIN_VALUE) {
 			throw new IllegalArgumentException("An image's x scale factor must be a positive, non-zero value. " + scaleFactorX + " is too small.");
 		} else if (scaleFactorY < Double.MIN_VALUE) {
@@ -128,7 +128,7 @@ public class TerraImage extends BufferedImage implements Cloneable {
 		int scaledHeight = (int) (height * scaleFactorY);
 		int scaledWidth = (int) (width * scaleFactorX);
 
-		TerraImage scaledImage = new TerraImage(scaledWidth, scaledHeight, this.getType());
+		Image scaledImage = new Image(scaledWidth, scaledHeight, this.getType());
 		AffineTransform scaler = AffineTransform.getScaleInstance(scaleFactorX, scaleFactorY);
 		AffineTransformOp scaleOperation = new AffineTransformOp(scaler, type);
 		scaleOperation.filter(this, scaledImage);

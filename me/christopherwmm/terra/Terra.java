@@ -2,11 +2,11 @@ package me.christopherwmm.terra;
 
 import me.christopherwmm.terra.gui.ImageFrame;
 import me.christopherwmm.terra.gui.NoiseFrame;
+import me.christopherwmm.terra.noise.DistanceFormula;
 import me.christopherwmm.terra.noise.Noise;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
 import me.christopherwmm.terra.noise.perlin.PerlinNoiseGenerator;
-import me.christopherwmm.terra.noise.voronoi.VoronoiDistance;
 import me.christopherwmm.terra.noise.voronoi.VoronoiNoiseGenerator;
 import me.christopherwmm.terra.noise.white.WhiteNoiseGenerator;
 
@@ -46,8 +46,8 @@ public class Terra {
 								.height(256)
 								.width(256)
 								.seed(0)
-								.distanceMode(VoronoiDistance.Euclidean)
-								.frequency(1)
+								.distanceFormula(DistanceFormula.Euclidean)
+								.frequency(3)
 								.noiseMask(0.0)
 								.generate();
 

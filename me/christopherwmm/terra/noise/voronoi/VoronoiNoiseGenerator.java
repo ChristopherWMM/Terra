@@ -1,5 +1,6 @@
 package me.christopherwmm.terra.noise.voronoi;
 
+import me.christopherwmm.terra.noise.DistanceFormula;
 import me.christopherwmm.terra.noise.NoiseGenerator;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 import me.christopherwmm.terra.noise.mask.NoiseMaskGenerator;
@@ -8,7 +9,7 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 	private int height;
 	private int width;
 	private long seed;
-	private VoronoiDistance distanceMode;
+	private DistanceFormula distanceFormula;
 	private int frequency;
 	private double[][] noise;
 	private double noiseMaskIntensity;
@@ -18,8 +19,8 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 		this.height = 512;
 		this.width = 512;
 		this.seed = 0;
-		this.distanceMode = VoronoiDistance.Euclidean;
-		this.frequency = 1;
+		this.distanceFormula = DistanceFormula.Euclidean;
+		this.frequency = 3;
 		this.noise = new double[this.height][this.width];
 		this.noiseMaskIntensity = 0;
 		this.noiseMask = new NoiseMaskGenerator()
@@ -61,12 +62,12 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 		return this;
 	}
 
-	public VoronoiNoiseGenerator distanceMode(final VoronoiDistance distanceMode) throws IllegalArgumentException {
+	public VoronoiNoiseGenerator distanceFormula(final DistanceFormula distanceMode) throws IllegalArgumentException {
 		if (distanceMode == null) {
 			throw new IllegalArgumentException("A voronoi noise distance mode cannot be null.");
 		}
 
-		this.distanceMode = distanceMode;
+		this.distanceFormula = distanceMode;
 		return this;
 	}
 
@@ -89,13 +90,13 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 
 		this.noise = generateNoiseArray();
 
-		return new VoronoiNoise(this.height, this.width, this.seed, this.noise, this.noiseMask, this.distanceMode, this.frequency);
+		return new VoronoiNoise(this.height, this.width, this.seed, this.noise, this.noiseMask, this.distanceFormula, this.frequency);
 	}
 
 	@Override
 	protected double generateNoiseValue(final int x, final int y) {
-		double adjustedX = x * frequency / 100.0;
-		double adjustedY = y * frequency / 100.0;
+		double adjustedX = (x / (double) this.height) * frequency;
+		double adjustedY = (y / (double) this.width) * frequency;
 
 		int flooredX = (int) adjustedX;
 		int flooredY = (int) adjustedY;
@@ -111,9 +112,9 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 				double currentXNoise = currentX + currentCellValue;
 				double currentYNoise = currentY + currentCellValue;
 
-				double currentDistance = calculateDistance(currentXNoise, currentYNoise, adjustedX, adjustedY, this.distanceMode);
+				double currentDistance = calculateDistance(currentXNoise, currentYNoise, adjustedX, adjustedY, this.distanceFormula);
 
-				if(currentDistance < minimumDistance) {
+				if (currentDistance < minimumDistance) {
 					minimumDistance = currentDistance;
 					xNoiseValue = (int) currentXNoise;
 					yNoiseValue = (int) currentYNoise;
@@ -139,31 +140,12 @@ public class VoronoiNoiseGenerator extends NoiseGenerator<VoronoiNoise> {
 		return noise;
 	}
 
-	private double calculateDistance(final double x1, final double y1, final double x2, final double y2, final VoronoiDistance distance) {
-		switch (distance) {
-			case Euclidean:
-				return Math.sqrt(Math.pow((x1 - x2), 2.0) + Math.pow((y1 - y2) , 2.0));
-
-			case Manhattan:
-				return Math.abs(x1 - x2) + Math.abs(y1 - y2);
-
-			case Minkowski:
-				double p = 3.0;
-				return Math.pow(Math.pow(Math.abs(x1 - x2), p) + Math.pow(Math.abs(y1 - y2), p), (1 / p));
-
-			case Chebyshev:
-				return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
-
-			case Equidistant:
-				return (x1 + y1) - (x2 + y2);
-
-			default:
-				return 0;
-		}
+	private double calculateDistance(final double x1, final double y1, final double x2, final double y2, final DistanceFormula distanceFormula) {
+		return distanceFormula.calculate(x1, y1, x2, y2);
 	}
 
 	private double calculateCellValue(final int x, final int y, final long seed) {
 		long hash = (0x653 * x + 0x1B3B * y + 0x3F5 * seed);
-		return (((hash * (hash * hash * 0xEC4D + 0x131071F) + 0x5208DD0D) & Integer.MAX_VALUE) / (0x40000000 / 1.0)) / 2;
+		return (((hash * (hash * hash * 0xEC4D + 0x131071F) + 0x5208DD0D) & Integer.MAX_VALUE) / (double) 0x40000000) / 2;
 	}
 }

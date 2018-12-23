@@ -1,5 +1,6 @@
 package me.christopherwmm.terra.noise.voronoi;
 
+import me.christopherwmm.terra.noise.DistanceFormula;
 import me.christopherwmm.terra.noise.Noise;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 
@@ -12,7 +13,7 @@ import me.christopherwmm.terra.noise.mask.NoiseMask;
  */
 public class VoronoiNoise extends Noise {
 	/** The methodology for calculating distance within this {@link VoronoiNoise} object. */
-	private final VoronoiDistance distanceMode;
+	private final DistanceFormula distanceFormula;
 
 	/** The non-zero integer initial frequency of this {@link VoronoiNoise} object. */
 	private final int frequency;
@@ -29,16 +30,16 @@ public class VoronoiNoise extends Noise {
 	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
 	 * @since 1.0
 	 */
-	VoronoiNoise(final int height, final int width, final long seed, final double[][] noiseArray, final NoiseMask noiseMask, final VoronoiDistance distanceMode, final int frequency) {
+	VoronoiNoise(final int height, final int width, final long seed, final double[][] noiseArray, final NoiseMask noiseMask, final DistanceFormula distanceFormula, final int frequency) {
 		super(height, width, seed, noiseArray, noiseMask);
 
 		if (frequency < 1) {
 			throw new IllegalArgumentException("A voronoi noise map initial frequency must be a positive, non-zero value. " + frequency + " is too small.");
-		} else if (distanceMode == null) {
+		} else if (distanceFormula == null) {
 			throw new IllegalArgumentException("A voronoi noise distance mode cannot be null.");
 		}
 
-		this.distanceMode = distanceMode;
+		this.distanceFormula = distanceFormula;
 		this.frequency = frequency;
 	}
 
@@ -51,12 +52,12 @@ public class VoronoiNoise extends Noise {
 	VoronoiNoise(final VoronoiNoise voronoiNoise) {
 		super(voronoiNoise);
 
-		this.distanceMode = voronoiNoise.getDistanceMode();
+		this.distanceFormula = voronoiNoise.getDistanceFormula();
 		this.frequency = voronoiNoise.getFrequency();
 	}
 
-	public VoronoiDistance getDistanceMode() {
-		return this.distanceMode;
+	public DistanceFormula getDistanceFormula() {
+		return this.distanceFormula;
 	}
 
 	/**

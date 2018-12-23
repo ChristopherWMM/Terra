@@ -1,7 +1,7 @@
 package me.christopherwmm.terra.noise;
 
 import me.christopherwmm.terra.Generator;
-import me.christopherwmm.terra.gui.TerraImage;
+import me.christopherwmm.terra.gui.Image;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 
 /**
@@ -110,8 +110,8 @@ public abstract class Noise {
 	 * @return The grayscale {@link BufferedImage} visual representation of the given 2D double array.
 	 * @since 1.0
 	 */
-	private TerraImage generateNoiseImage(final double[][] noise) {
-		TerraImage noiseImage = new TerraImage(this.getWidth(), this.getHeight(), TerraImage.TYPE_INT_ARGB);
+	private Image generateNoiseImage(final double[][] noise) {
+		Image noiseImage = new Image(this.getWidth(), this.getHeight(), Image.TYPE_INT_ARGB);
 
 		for (int x = 0; x < this.width; x++) {
 			for (int y = 0; y < this.height; y++) {
@@ -176,10 +176,10 @@ public abstract class Noise {
 	/**
 	 * Returns a visual representation of this {@link Noise} object.
 	 * 
-	 * @return A {@link TerraImage} visual representation of this {@link Noise} object.
+	 * @return A {@link Image} visual representation of this {@link Noise} object.
 	 * @since 1.0
 	 */
-	public TerraImage getNoiseImage() {
+	public Image getNoiseImage() {
 		return this.generateNoiseImage(this.noiseArray);
 	}
 }

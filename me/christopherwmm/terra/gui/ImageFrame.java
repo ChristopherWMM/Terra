@@ -6,23 +6,23 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class ImageFrame extends JFrame {
 	private final String TITLE;
-	private final TerraImage ICON;
+	private final Image ICON;
 	private final int WIDTH;
 	private final int HEIGHT;
 
-	public ImageFrame(final TerraImage image) {
+	public ImageFrame(final Image image) {
 		this("", image, true);
 	}
 
-	public ImageFrame(final String title, final TerraImage image) {
+	public ImageFrame(final String title, final Image image) {
 		this(title, image, true);
 	}
 
-	public ImageFrame(final String title, final TerraImage image, final boolean resizable) {
+	public ImageFrame(final String title, final Image image, final boolean resizable) {
 		this(title, image.getWidth(), image.getHeight(), image, resizable);
 	}
 
-	public ImageFrame(final String title, int width, int height, final TerraImage image, final boolean resizable) {
+	public ImageFrame(final String title, int width, int height, final Image image, final boolean resizable) {
 		this.TITLE = title;
 		this.ICON = image;
 		this.WIDTH = width;

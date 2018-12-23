@@ -1,5 +1,5 @@
 package me.christopherwmm.terra.noise.mask;
-import me.christopherwmm.terra.gui.TerraImage;
+import me.christopherwmm.terra.gui.Image;
 
 /**
  * The immutable programmatic representation of a noise mask.
@@ -21,8 +21,8 @@ public class NoiseMask {
 	/** The 2D double array containing the individual mask values of this {@link NoiseMask} object. */
 	private final double[][] maskArray;
 
-	/** The {@link TerraImage} visual representation of this {@link NoiseMask} object. */
-	private final TerraImage maskImage;
+	/** The {@link Image} visual representation of this {@link NoiseMask} object. */
+	private final Image maskImage;
 
 	/**
 	 * Constructs a new {@link NoiseMask} object with the given values.
@@ -106,8 +106,8 @@ public class NoiseMask {
 	 * @return The grayscale {@link BufferedImage} visual representation of the given 2D double array.
 	 * @since 1.0
 	 */
-	private TerraImage generateMaskImage(final double[][] mask) {
-		TerraImage maskImage = new TerraImage(this.getWidth(), this.getHeight(), TerraImage.TYPE_INT_ARGB);
+	private Image generateMaskImage(final double[][] mask) {
+		Image maskImage = new Image(this.getWidth(), this.getHeight(), Image.TYPE_INT_ARGB);
 
 		for (int x = 0; x < this.width; x++) {
 			for (int y = 0; y < this.height; y++) {
@@ -166,10 +166,10 @@ public class NoiseMask {
 	/**
 	 * Returns a visual representation of this {@link NoiseMask} object.
 	 * 
-	 * @return A {@link TerraImage} visual representation of this {@link NoiseMask} object.
+	 * @return A {@link Image} visual representation of this {@link NoiseMask} object.
 	 * @since 1.0
 	 */
-	public TerraImage getMaskImage() {
+	public Image getMaskImage() {
 		return this.maskImage.clone();
 	}
 
