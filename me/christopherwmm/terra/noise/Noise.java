@@ -5,13 +5,13 @@ import me.christopherwmm.terra.gui.Image;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
 
 /**
- * The abstract superclass for all immutable programmatic representations of noise.
+ * The superclass for all immutable programmatic representations of noise.
  * Objects store the results output by a noise {@link Generator} with the specific corresponding parameters.
  * 
  * @since 1.0
  * @author ChristopherWMM
  */
-public abstract class Noise {
+public class Noise {
 	/** The non-zero integer height of this {@link Noise} object. */
 	private final int height;
 
@@ -68,23 +68,46 @@ public abstract class Noise {
 		this.height = noise.getHeight();
 		this.width = noise.getWidth();
 		this.seed = noise.getSeed();
-		this.noiseArray = new double[this.height][this.width];
+		this.noiseArray = this.copy2DArray(noise.getNoise());
 		this.noiseMask = noise.getNoiseMask().clone();
+	}
 
-		this.copy2DArray(this.noiseArray, noiseArray);
+	public Noise blend(final BlendMode mode, final Noise noise) {
+		if (this.height != noise.getHeight()) {
+			throw new IllegalArgumentException("The height of the given noise map does not match that of this noise map.");
+		} else if (this.width != noise.getWidth()) {
+			throw new IllegalArgumentException("The width of the given noise map does not match that of this noise map.");
+		}
+
+		Noise newNoise = new Noise(this);
+
+		double[][] noiseArray1 = newNoise.getNoise();
+		double[][] noiseArray2 = noise.getNoise();
+
+		for (int x = 0; x < this.width; x++) {
+			for (int y = 0; y < this.height; y++) {
+				noiseArray1[y][x] = mode.blend(noiseArray1[y][x], noiseArray2[y][x]);
+			}
+		}
+
+		return newNoise;
 	}
 
 	/**
 	 * Performs a deep copy on a each row of a 2D array using {@link System#arraycopy(Object, int, Object, int, int) System.arraycopy()}.
 	 * 
-	 * @param target The 2D array receiving the information from the given source.
 	 * @param source The 2D array being copied into the given target.
+	 * @return The deep copy of the source values.
 	 * @since 1.0
 	 */
-	private void copy2DArray(final double[][] target, final double[][] source) {
+	private double[][] copy2DArray(final double[][] source) {
+		final double[][] target = new double[source.length][source[0].length];
+
 		for (int x = 0; x < source.length; x++) {
 			System.arraycopy(source[x], 0, target[x], 0, source[x].length);
 		}
+
+		return target;
 	}
 
 	/**
@@ -181,5 +204,9 @@ public abstract class Noise {
 	 */
 	public Image getNoiseImage() {
 		return this.generateNoiseImage(this.noiseArray);
+	}
+
+	public Noise clone() {
+		return new Noise(this);
 	}
 }

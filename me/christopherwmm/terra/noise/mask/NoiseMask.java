@@ -21,9 +21,6 @@ public class NoiseMask {
 	/** The 2D double array containing the individual mask values of this {@link NoiseMask} object. */
 	private final double[][] maskArray;
 
-	/** The {@link Image} visual representation of this {@link NoiseMask} object. */
-	private final Image maskImage;
-
 	/**
 	 * Constructs a new {@link NoiseMask} object with the given values.
 	 * 
@@ -50,10 +47,7 @@ public class NoiseMask {
 		this.height = height;
 		this.width = width;
 		this.intensity = intensity;
-		this.maskArray = new double[this.height][this.width];
-		this.maskImage = generateMaskImage(maskArray);
-
-		copy2DArray(this.maskArray, maskArray);
+		this.maskArray = maskArray;
 	}
 
 	/**
@@ -66,21 +60,24 @@ public class NoiseMask {
 		this.height = noiseMask.getHeight();
 		this.width = noiseMask.getWidth();
 		this.intensity = noiseMask.getIntensity();
-		this.maskArray = noiseMask.getMask();
-		this.maskImage = generateMaskImage(this.maskArray);
+		this.maskArray = this.copy2DArray(noiseMask.getMask());
 	}
 
 	/**
 	 * Performs a deep copy on a each row of a 2D array using {@link System#arraycopy(Object, int, Object, int, int) System.arraycopy()}.
 	 * 
-	 * @param target The 2D array receiving the information from the given source.
 	 * @param source The 2D array being copied into the given target.
+	 * @return The deep copy of the source values.
 	 * @since 1.0
 	 */
-	private void copy2DArray(final double[][] target, final double[][] source) {
+	private double[][] copy2DArray(final double[][] source) {
+		final double[][] target = new double[source.length][source[0].length];
+
 		for (int x = 0; x < source.length; x++) {
 			System.arraycopy(source[x], 0, target[x], 0, source[x].length);
 		}
+
+		return target;
 	}
 
 	/**
@@ -157,10 +154,7 @@ public class NoiseMask {
 	 * @since 1.0
 	 */
 	public double[][] getMask() {
-		double[][] maskArrayCopy = new double[this.height][this.width];
-		copy2DArray(maskArrayCopy, this.maskArray);
-
-		return maskArrayCopy;
+		return this.maskArray;
 	}
 
 	/**
@@ -170,7 +164,7 @@ public class NoiseMask {
 	 * @since 1.0
 	 */
 	public Image getMaskImage() {
-		return this.maskImage.clone();
+		return this.generateMaskImage(this.maskArray);
 	}
 
 	/**

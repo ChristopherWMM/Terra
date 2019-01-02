@@ -2,6 +2,7 @@ package me.christopherwmm.terra;
 
 import me.christopherwmm.terra.gui.ImageFrame;
 import me.christopherwmm.terra.gui.NoiseFrame;
+import me.christopherwmm.terra.noise.BlendMode;
 import me.christopherwmm.terra.noise.DistanceFormula;
 import me.christopherwmm.terra.noise.Noise;
 import me.christopherwmm.terra.noise.mask.NoiseMask;
@@ -52,5 +53,14 @@ public class Terra {
 								.generate();
 
 		new NoiseFrame(voronoi);
+
+		new NoiseFrame(perlin.blend(BlendMode.Add, voronoi));
+		new NoiseFrame(perlin.blend(BlendMode.Subtract, voronoi));
+		new NoiseFrame(perlin.blend(BlendMode.Multiply, voronoi));
+		new NoiseFrame(perlin.blend(BlendMode.Divide, voronoi));
+		new NoiseFrame(perlin.blend(BlendMode.Overlay, voronoi));
+		new NoiseFrame(perlin.blend(BlendMode.Screen, voronoi));
+		new NoiseFrame(perlin.blend(BlendMode.Darken, voronoi));
+		new NoiseFrame(perlin.blend(BlendMode.Lighten, voronoi));
 	}
 }
