@@ -37,6 +37,7 @@ public enum DistanceFormula {
 	 * @param y2 The y coordinate of the second point.
 	 * 
 	 * @return The distance between two points using this {@link DistanceFormula}.
+	 * @since 1.0
 	 */
 	public double calculate(final double x1, final double y1, final double x2, final double y2) {
 		return calculator.calculate(x1, y1, x2, y2);
