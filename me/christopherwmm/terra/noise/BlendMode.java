@@ -7,29 +7,25 @@ package me.christopherwmm.terra.noise;
  * @author ChristopherWMM
  */
 public enum BlendMode {
-	/** Returns the sum of the noise values at each position on both noise maps. Results in a lighter noise map. */
-	Add((x, y) -> Math.min(x + y, 1)),
-
-	/** Returns the difference of the noise values at each position on both noise maps. Results in a darker noise map. */
-	Subtract((x, y) -> Math.max(x - y, 0)),
-
-	/** Returns the product of the noise values at each position on both noise maps. Results in a lighter noise map. */
-	Multiply((x, y) -> x * y),
-
-	/** Returns the quotient of the noise values at each position on both noise maps. Results in a darker noise map. */
-	Divide((x, y) -> (y > 0) ? x / y : x),
-
-	/** Returns an S-curve of the noise values at each position on both noise maps. Lighter values on the first noise map become lighter and darker values on the second noise map become darker. */
-	Overlay((x, y) -> (x < 0.5) ? (2 * x * y) : (1 - 2 * (1 - x) * (1 - y))),
-
-	/** Returns the inverse product of the noise values at each position on both noise maps. */
-	Screen((x, y) -> 1 - (1 - x) * (1 - y)),
-
-	/** Returns the darker of the noise values at each position on both noise maps. */
 	Darken((x, y) -> Math.min(x, y)),
+	Multiply((x, y) -> x * y),
+	ColorBurn((x, y) -> (y > 0) ? Math.max(1 - (1 - x) / y, 0) : 0),
+	LinearBurn((x, y) -> Math.max(x + y - 1, 0)),
 
-	/** Returns the lighter of the noise values at each position on both noise maps. */
-	Lighten((x, y) -> Math.max(x, y));
+	Lighten((x, y) -> Math.max(x, y)),
+	// ColorDodge((x, y) -> (x < 1) ? y / (1 - x) : 1),
+	// LinearDodge((x, y) -> Math.min(x + y, 1)),
+	Screen((x, y) -> 1 - (1 - x) * (1 - y)),
+	Overlay((x, y) -> (x <= 0.5) ? (2 * x * y) : (1 - 2 * (1 - x) * (1 - y))),
+
+	SoftLight((x, y) -> (y <= 0.5) ? x * (y + 0.5) : 1 - (1 - x) * (1 - (y - 0.5))),
+	// HardLight((x, y) -> (y <= 0.5) ? 2 * x * y : 1 - (1 - x) * (1 - 2 * (y - 0.5))),
+	// VividLight((x, y) -> (y <= 0.5) ? (y > 0) ? Math.max(1 - (1 - x) / (2 * y), 0) : 0 : (x < 1) ? y / (2 *(1 - x)) : 1),
+	// LinearLight((x, y) -> (y <= 0.5) ? 1 - 2 * y + x : x + 2 * (y - 0.5)),
+	// PinLight((x, y) -> (y <= 0.5) ? Math.min(x, 2 * y) : Math.max(x, 2 * (y - 0.5))),
+
+	Difference((x, y) -> Math.abs(x - y)),
+	Exclusion((x, y) -> 0.5 - 2 * (x - 0.5) * (y - 0.5));
 
 	private final BlendCalculator calculator;
 
