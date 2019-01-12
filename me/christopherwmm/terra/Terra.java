@@ -2,6 +2,7 @@ package me.christopherwmm.terra;
 
 import me.christopherwmm.terra.gui.ImageFrame;
 import me.christopherwmm.terra.gui.NoiseFrame;
+
 import me.christopherwmm.terra.noise.BlendMode;
 import me.christopherwmm.terra.noise.DistanceFormula;
 import me.christopherwmm.terra.noise.Noise;
@@ -44,13 +45,13 @@ public class Terra {
 		new NoiseFrame(white);
 
 		Noise voronoi = new VoronoiNoiseGenerator()
-								.height(256)
-								.width(256)
-								.seed(0)
-								.distanceFormula(DistanceFormula.Euclidean)
-								.frequency(3)
-								.noiseMask(0.0)
-								.generate();
+							.height(256)
+							.width(256)
+							.seed(0)
+							.distanceFormula(DistanceFormula.Euclidean)
+							.frequency(3)
+							.noiseMask(0.0)
+							.generate();
 
 		new NoiseFrame(voronoi);
 

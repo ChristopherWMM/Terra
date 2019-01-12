@@ -139,8 +139,8 @@ public class WhiteNoiseGenerator extends NoiseGenerator<WhiteNoise> {
 	/**
 	 * Generates the {@link WhiteNoise} value at the specified x and y coordinates based on the specific parameters entered into this {@link NoiseGenerator} object.
 	 * 
-	 * @param x The non-zero integer x coordinate of the T value being generated.
-	 * @param y The non-zero integer x coordinate of the T value being generated.
+	 * @param x The non-zero integer x coordinate of the {@link WhiteNoise} value being generated.
+	 * @param y The non-zero integer x coordinate of the {@link WhiteNoise} value being generated.
 	 * @return The WhiteNoise value for the specified x and y coordinates.
 	 * @since 1.0
 	 */
