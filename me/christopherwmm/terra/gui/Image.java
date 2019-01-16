@@ -47,6 +47,23 @@ public class Image extends BufferedImage implements Cloneable {
 	/**
 	 * Returns a new {@link Image} object that is scaled up or down using Bilinear interpolation.
 	 * 
+	 * @param scaleFactor The positive, non-zero double percentage the new {@link Image} will be scaled by.
+	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
+	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
+	 * @since 1.0
+	 */
+	public Image scaleBilinear(final double scaleFactor) {
+		if (scaleFactor < Double.MIN_VALUE) {
+			throw new IllegalArgumentException("An image's scale factor must be a positive, non-zero value. " + scaleFactor + " is too small.");
+		}
+
+		final int interpolation = AffineTransformOp.TYPE_BILINEAR;
+		return scale(scaleFactor, scaleFactor, interpolation);
+	}
+
+	/**
+	 * Returns a new {@link Image} object that is scaled up or down using Bilinear interpolation.
+	 * 
 	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled in the x direction.
 	 * @param scaleFactorY The positive, non-zero double percentage the new {@link Image} will be scaled in the y direction.
 	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
@@ -67,6 +84,23 @@ public class Image extends BufferedImage implements Cloneable {
 	/**
 	 * Returns a new {@link Image} object that is scaled up or down using Bicubic interpolation.
 	 * 
+	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled by.
+	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
+	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
+	 * @since 1.0
+	 */
+	public Image scaleBicubic(final double scaleFactor) {
+		if (scaleFactor < Double.MIN_VALUE) {
+			throw new IllegalArgumentException("An image's x scale factor must be a positive, non-zero value. " + scaleFactor + " is too small.");
+		}
+
+		final int interpolation = AffineTransformOp.TYPE_BICUBIC;
+		return scale(scaleFactor, scaleFactor, interpolation);
+	}
+
+	/**
+	 * Returns a new {@link Image} object that is scaled up or down using Bicubic interpolation.
+	 * 
 	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled in the x direction.
 	 * @param scaleFactorY The positive, non-zero double percentage the new {@link Image} will be scaled in the y direction.
 	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
@@ -82,6 +116,23 @@ public class Image extends BufferedImage implements Cloneable {
 
 		final int interpolation = AffineTransformOp.TYPE_BICUBIC;
 		return scale(scaleFactorX, scaleFactorY, interpolation);
+	}
+
+	/**
+	 * Returns a new {@link Image} object that is scaled up or down using Nearest Neighbor interpolation.
+	 * 
+	 * @param scaleFactorX The positive, non-zero double percentage the new {@link Image} will be scaled by.
+	 * @return A new {@link Image} object that is a is scaled up or down version of this {@link Image} object.
+	 * @throws IllegalArgumentException if the given parameters are outside of the valid range.
+	 * @since 1.0
+	 */
+	public Image scaleNearestNeighbor(final double scaleFactor) {
+		if (scaleFactor < Double.MIN_VALUE) {
+			throw new IllegalArgumentException("An image's x scale factor must be a positive, non-zero value. " + scaleFactor + " is too small.");
+		}
+
+		final int interpolation = AffineTransformOp.TYPE_NEAREST_NEIGHBOR;
+		return scale(scaleFactor, scaleFactor, interpolation);
 	}
 
 	/**
