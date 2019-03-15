@@ -20,7 +20,7 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
       ![perlin-grid-vectors][perlin-grid-vectors]
 
 2. **Calculation:** 
-   1. Calculate the Dot Product between each pixel position and its four respective Perlin grid vertex vectors. This ensures that each point in adjacent Perlin grid quadrants shares two pseudorandom vectors.
+   1. Calculate the Dot Product between each pixel position and its four respective Perlin grid vertex vectors. This ensures that each point shares at least one pseudorandom vectors as points in adjacent Perlin grid quadrants.
 
       ![perlin-grid-dot-product][perlin-grid-dot-product]
 
@@ -60,7 +60,7 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
     | :-----------------------: | :-----------------------: | :-----------------------: |
     | ![Frequency: 1][perlin-frequency-1] | ![Frequency: 2][perlin-frequency-2] | ![Frequency: 4][perlin-frequency-4] |
 
-###### \* Note: The sigmoid fade function has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between Perlin grid quadrants.
+    ###### \* Note: The sigmoid fade function has been disabled to clearly show the effect of increasing the initial frequency. This causes artifacts to be visible between Perlin grid quadrants.
 
 + Octave:
   + **Definition**: A single noise map which can be used independently or in compounding layers.
@@ -71,7 +71,7 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
     | ![Original Octave][octave-original] | ![Layer 1][octave-1] | ![Layer 2][octave-2] |  ![Octave Result][octave-result]|
 
 + Persistence:
-  + **Definition**: The amplitude multiplier between subsequently noise map octaves.
+  + **Definition**: The amplitude multiplier between subsequently compounded octaves.
 
   + **Amplitude function used:** ![Amplitude Function][amplitude-function]
 
@@ -82,7 +82,7 @@ Perlin noise, while random, is what is referred to as *coherent noise* meaning t
     | ![Low Persistence][persistence-low] | ![Moderate Persistence][persistence-moderate] | ![High Persistence][persistence-high] |
 
 + Lacunarity:
-  + **Definition**: The frequency multiplier between subsequently noise map octaves.
+  + **Definition**: The frequency multiplier between subsequently compounded octaves.
   + **Frequency function used:** ![Frequency Function][frequency-function]
   + **Use**: Controls the number of small features visible on the noise map after all octaves have been compounded.
 
@@ -155,9 +155,9 @@ Noise perlin = new PerlinNoiseGenerator()
 [lacunarity-moderate]: https://i.imgur.com/WnQSBM2.png "Moderate Lacunarity Perlin Noise."
 [lacunarity-high]: https://i.imgur.com/94jQRU6.png "High Lacunarity Perlin Noise."
 
-[amplitude-function]: http://latex.codecogs.com/gif.latex?amplitude%20%3D%20persistence%7B%5E%7B%28octaves%20-%201%29%7D%7D "Perlin Noise persistence function LaTeX."
+[amplitude-function]: https://i.imgur.com/pt3Enhh.png "Perlin Noise persistence function LaTeX."
 
-[frequency-function]: http://latex.codecogs.com/gif.latex?frequency%20%3D%20%28initial%20frequency%29%20*%20lacunarity%7B%5E%7B%28octaves%20-%201%29%7D%7D "Perlin Noise frequency function LaTeX."
+[frequency-function]: https://i.imgur.com/WdqIVKC.png "Perlin Noise frequency function LaTeX."
 
 [noise-mask]: https://i.imgur.com/HgLPvlF.png "Raw Noise Mask."
 [raw-perlin]: https://i.imgur.com/OXBXLNm.png "Perlin Noise with no Noise Mask."
